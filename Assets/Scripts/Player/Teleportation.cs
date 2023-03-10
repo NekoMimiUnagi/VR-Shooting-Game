@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Teleportation : MonoBehaviour
 {
+    public GameObject shootingRangeNotice;
+
     private List<GameObject> teleportationTargets = new List<GameObject>();
     private List<Bounds> bounds = new List<Bounds>();
     private bool readyFlag = false;
@@ -33,11 +36,11 @@ public class Teleportation : MonoBehaviour
         }
 
         // restore position and facing direction after teleportation
-        mainCamera = GameObject.FindWithTag("MainCamera");
         playerData = GameObject.Find("PlayerData").GetComponent<PlayerData>();
+        mainCamera = GameObject.FindWithTag("MainCamera");
         if (playerData.Exists(gameObject.name))
         {
-            (Vector3 vector, Quaternion rotation) = playerData.Get(gameObject.name);
+            (Vector3 vector, Quaternion rotation) = playerData.GetRelativeTransform(gameObject.name);
             string fromSceneName = playerData.GetFromSceneName(gameObject.name);
             if ("Lobby" == fromSceneName)
             {
@@ -67,19 +70,27 @@ public class Teleportation : MonoBehaviour
             if (bounds[i].Contains(p_point))
             {
                 inFlag = true;
+                if (null == shootingRangeNotice)
+                {
+                    shootingRangeNotice = GameObject.Find("ShootingRangeNotice");
+                }
+                shootingRangeNotice.transform.Find("Ready").gameObject.SetActive(true);
 
                 // if shooting, the player is ready
-                if (Input.GetButtonDown("js1"))
+                if (Input.GetButtonDown("js7"))
                 {
                     readyFlag = !readyFlag;
                 }
 
                 if (readyFlag)
                 {
-                    ;// pop text to mention player to push shoot button to cancel ready status
+                    // pop text to mention player to push shoot button to cancel ready status
+                    shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press OK to cancel ready";
+
+                    // teleport to corresponding space
                     Vector3 positionToCenter = p_point - bounds[i].center;
-                    playerData.Update(gameObject.name, positionToCenter, mainCamera.transform.rotation);
-                    playerData.Update(gameObject.name, SceneManager.GetActiveScene().name);
+                    playerData.UpdateRelativeTransform(gameObject.name, positionToCenter, mainCamera.transform.rotation);
+                    playerData.UpdateFromSceneName(gameObject.name, SceneManager.GetActiveScene().name);
                     if ("Lobby" == SceneManager.GetActiveScene().name)
                     {
                         SceneManager.LoadScene($"Scene{i+1}", LoadSceneMode.Single);
@@ -91,7 +102,8 @@ public class Teleportation : MonoBehaviour
                 }
                 else
                 {
-                    ;// pop text to mention player to push shoot button to active ready status
+                    // pop text to mention player to push shoot button to active ready status
+                    shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press OK to get ready";
                 }
             }
         }
@@ -100,6 +112,13 @@ public class Teleportation : MonoBehaviour
         if (!inFlag)
         {
             readyFlag = false;
+
+            // close ready notice
+            if (null == shootingRangeNotice)
+            {
+                shootingRangeNotice = GameObject.Find("ShootingRangeNotice");
+            }
+            shootingRangeNotice.transform.Find("Ready").gameObject.SetActive(false);
         }
     }
 }
