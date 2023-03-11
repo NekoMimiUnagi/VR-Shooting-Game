@@ -4,7 +4,22 @@ using UnityEngine;
 
 public class ReticleActivator : MonoBehaviour
 {
-    public GameObject reticle;
+    public static ReticleActivator instance { get; private set; }
+
+    private GameObject mainCamera;
+
+    void Awake()
+    {
+        if (null != instance)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -20,11 +35,13 @@ public class ReticleActivator : MonoBehaviour
 
     public void Show()
     {
-        reticle.SetActive(true);
+        mainCamera = GameObject.FindWithTag("MainCamera");
+        mainCamera.transform.Find("VRGroup/Reticle").gameObject.SetActive(true);
     }
 
     public void Hide()
     {
-        reticle.SetActive(false);
+        mainCamera = GameObject.FindWithTag("MainCamera");
+        mainCamera.transform.Find("VRGroup/Reticle").gameObject.SetActive(false);
     }
 }

@@ -9,6 +9,7 @@ public class MenuActivator : MonoBehaviour
     public GameObject settingsPanel;
     public GameObject colorPanel;
     public GameObject volumePanel;
+    public GameObject inventoryPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,7 @@ public class MenuActivator : MonoBehaviour
     {
         // press Menu to activate/deactivate settings menu
         // handle what happends after close all menus and when to open lobby menu
-        if (Input.GetButtonDown("js1") && !mainMenu.activeSelf)
+        if (Input.GetButtonDown("js1") && !mainMenu.activeSelf && !inventoryPanel.activeSelf)
         {
             if (lobbyMenu.activeSelf)
             {

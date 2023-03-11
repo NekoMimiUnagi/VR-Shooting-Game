@@ -37,7 +37,7 @@ public class VolumePanel : MonoBehaviour
     void Update()
     {
         float trend = Input.GetAxisRaw("Horizontal");
-        if (0f == trend)
+        if (-0.2f <= trend && trend <= 0.2f)
         {
             waitTime = 0;
             waitFlag = false;

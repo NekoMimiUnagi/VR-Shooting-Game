@@ -15,8 +15,8 @@ public class ColorPanel : MonoBehaviour
     private RawImage colorDisplayer;
     private GameObject notice;
 
-        private float waitTime = 0;
-        private bool waitFlag = false;
+    private float waitTime = 0;
+    private bool waitFlag = false;
 
     private List<Color> colors = new List<Color> { Color.blue, Color.black, Color.cyan, Color.green,
                                                    Color.magenta, Color.red, Color.white, Color.yellow };
@@ -42,7 +42,7 @@ public class ColorPanel : MonoBehaviour
     void Update()
     {
         float trend = Input.GetAxisRaw("Horizontal");
-        if (0f == trend)
+        if (-0.2f <= trend && 0.2f <= trend)
         {
             waitTime = 0;
             waitFlag = false;

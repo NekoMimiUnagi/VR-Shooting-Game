@@ -56,7 +56,7 @@ public class MenuController : MonoBehaviour
     {
         // select button by joy-stick up and down
         float trend = Input.GetAxisRaw("Vertical");
-        if (0f == trend)
+        if (-0.2f <= trend && trend <= 0.2f)
         {
             waitTime = 0;
             waitFlag = false;

@@ -85,7 +85,10 @@ public class Teleportation : MonoBehaviour
                 if (readyFlag)
                 {
                     // pop text to mention player to push shoot button to cancel ready status
-                    shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press OK to cancel ready";
+                    if ("Lobby" == SceneManager.GetActiveScene().name)
+                    {
+                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press OK to cancel ready";
+                    }
 
                     // teleport to corresponding space
                     Vector3 positionToCenter = p_point - bounds[i].center;
@@ -103,7 +106,14 @@ public class Teleportation : MonoBehaviour
                 else
                 {
                     // pop text to mention player to push shoot button to active ready status
-                    shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press OK to get ready";
+                    if ("Lobby" == SceneManager.GetActiveScene().name)
+                    {
+                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press OK to get ready";
+                    }
+                    else
+                    {
+                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press OK to go lobby";
+                    }
                 }
             }
         }
