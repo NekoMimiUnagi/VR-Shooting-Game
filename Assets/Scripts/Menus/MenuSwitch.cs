@@ -9,11 +9,14 @@ public class MenuSwitch : MonoBehaviour
     public void SwitchMenu()
     {
         // TODO: remove all other players
-        GameObject parentMenu = gameObject.transform.parent.gameObject;
-        string originMenuName = parentMenu.GetComponent<MenuController>().Hide();
+        string originMenuName = gameObject.transform.parent.GetComponent<MenuController>().Hide();
         if ("ColorPanel" == targetMenu.name)
         {
             targetMenu.GetComponent<ColorPanel>().Show(originMenuName);
+        }
+        else if("VolumePanel" == targetMenu.name)
+        {
+            targetMenu.GetComponent<VolumePanel>().Show(originMenuName);
         }
         else
         {

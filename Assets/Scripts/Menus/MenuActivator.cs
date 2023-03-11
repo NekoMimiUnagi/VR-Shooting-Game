@@ -8,6 +8,7 @@ public class MenuActivator : MonoBehaviour
     public GameObject lobbyMenu;
     public GameObject settingsPanel;
     public GameObject colorPanel;
+    public GameObject volumePanel;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,7 @@ public class MenuActivator : MonoBehaviour
     void Update()
     {
         // press Menu to activate/deactivate settings menu
+        // handle what happends after close all menus and when to open lobby menu
         if (Input.GetButtonDown("js1") && !mainMenu.activeSelf)
         {
             if (lobbyMenu.activeSelf)
@@ -36,10 +38,12 @@ public class MenuActivator : MonoBehaviour
             else if (colorPanel.activeSelf)
             {
                 string originMenuName = colorPanel.GetComponent<ColorPanel>().Hide();
-                if ("MainMenu" == originMenuName)
-                {
-                    mainMenu.GetComponent<MenuController>().Show(mainMenu.name);
-                }
+                settingsPanel.GetComponent<MenuController>().Show(originMenuName);
+            }
+            else if (volumePanel.activeSelf)
+            {
+                string originMenuName = volumePanel.GetComponent<VolumePanel>().Hide();
+                settingsPanel.GetComponent<MenuController>().Show(originMenuName);
             }
             else
             {

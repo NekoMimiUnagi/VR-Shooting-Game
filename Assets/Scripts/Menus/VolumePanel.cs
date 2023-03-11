@@ -3,25 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ColorPanel : MonoBehaviour
+public class VolumePanel : MonoBehaviour
 {
-    public static ColorPanel instance { get; private set; }
+    public static VolumePanel instance { get; private set; }
 
     private SpeedController speedCtrl;
     private ReticleActivator reticleActivator;
     private string originMenuName = "";
 
-    private GameObject player;
-    private RawImage colorDisplayer;
-    private GameObject notice;
+    private float waitTime = 0;
+    private bool waitFlag = false;
 
-        private float waitTime = 0;
-        private bool waitFlag = false;
-
-    private List<Color> colors = new List<Color> { Color.blue, Color.black, Color.cyan, Color.green,
-                                                   Color.magenta, Color.red, Color.white, Color.yellow };
-    private int selectedColorIndex = 0;
-    private Dictionary<Color, string> colorUsage = new Dictionary<Color, string>();
+    private Slider slider;
+    private AudioSource audioSource;
+    private float volume = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -30,10 +25,10 @@ public class ColorPanel : MonoBehaviour
         speedCtrl = GameObject.Find("SpeedController").GetComponent<SpeedController>();
         reticleActivator = GameObject.Find("ReticleActivator").GetComponent<ReticleActivator>();
 
-        player = GameObject.FindWithTag("Player");
-        colorDisplayer = gameObject.GetComponentInChildren<RawImage>();
-        colorDisplayer.color = colors[selectedColorIndex];
-        notice = gameObject.transform.Find("Notice").gameObject;
+        audioSource = GameObject.Find("Sound").GetComponentInChildren<AudioSource>();
+        slider = gameObject.GetComponentInChildren<Slider>();
+        volume = slider.value;
+        audioSource.volume = volume;
 
         gameObject.SetActive(false);
     }
@@ -51,22 +46,24 @@ public class ColorPanel : MonoBehaviour
         {
             if (trend > 0.2)
             {
-                selectedColorIndex = (selectedColorIndex + 1) % colors.Count;
+                volume = Mathf.Min(volume + 0.01f, 1);
+                slider.value = volume;
+                audioSource.volume = volume;
                 waitFlag = true;
-                colorDisplayer.color = colors[selectedColorIndex];
             }
             else if (trend < -0.2)
             {
-                selectedColorIndex = (selectedColorIndex - 1 + colors.Count) % colors.Count;
+                volume = Mathf.Max(volume - 0.01f, 0);
+                slider.value = volume;
+                audioSource.volume = volume;
                 waitFlag = true;
-                colorDisplayer.color = colors[selectedColorIndex];
             }
         }
         else
         {
             // add delay after each choice for continuous moving up or down
             waitTime += Time.deltaTime;
-            if (waitTime > 0.5f)
+            if (waitTime > 0.01f)
             {
                 waitTime = 0;
                 waitFlag = false;

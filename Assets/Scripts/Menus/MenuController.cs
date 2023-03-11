@@ -9,7 +9,7 @@ public class MenuController : MonoBehaviour
 
     private SpeedController speedCtrl;
     private ReticleActivator reticleActivator;
-    private string getOriginMenuName = "";
+    private string originMenuName = "";
 
     private List<Image> buttons = new List<Image>();
     private int selectedButtonIndex = 0;
@@ -28,7 +28,7 @@ public class MenuController : MonoBehaviour
         // Show main menu when game starts
         if ("MainMenu" == gameObject.name && !playerData.Exists(player.name))
         {
-            getOriginMenuName = gameObject.name;
+            originMenuName = gameObject.name;
             reticleActivator.Hide();
             speedCtrl.Lock();
             playerData.StartGame(player.name);
@@ -43,7 +43,10 @@ public class MenuController : MonoBehaviour
         {
             if (null == child)
                 continue;
-            buttons.Add(child.gameObject.GetComponent<Image>());
+            if (child.GetComponent<Button>())
+            {
+                buttons.Add(child.GetComponent<Image>());
+            }
         }
         buttons[0].color = Color.yellow;
     }
@@ -101,7 +104,7 @@ public class MenuController : MonoBehaviour
 
     public void Show(string name = "")
     {
-        getOriginMenuName = name;
+        originMenuName = name;
         reticleActivator.Hide();
         speedCtrl.Lock();
         gameObject.SetActive(true);
@@ -113,6 +116,6 @@ public class MenuController : MonoBehaviour
         speedCtrl.Unlock();
         gameObject.SetActive(false);
 
-        return getOriginMenuName;
+        return originMenuName;
     }
 }
