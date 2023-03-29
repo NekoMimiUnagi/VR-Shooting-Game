@@ -22,7 +22,7 @@ public class MenuActivator : MonoBehaviour
     {
         // press Menu to activate/deactivate settings menu
         // handle what happends after close all menus and when to open lobby menu
-        if (Input.GetButtonDown("js7") && !mainMenu.activeSelf && !inventoryPanel.activeSelf)
+        if (Input.GetButtonDown("js2") && !mainMenu.activeSelf && !inventoryPanel.activeSelf)
         {
             if (lobbyMenu.activeSelf)
             {
