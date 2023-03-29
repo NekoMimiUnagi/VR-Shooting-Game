@@ -31,9 +31,12 @@ public class ColorPanel : MonoBehaviour
         reticleActivator = GameObject.Find("ReticleActivator").GetComponent<ReticleActivator>();
 
         player = GameObject.FindWithTag("Player");
-        colorDisplayer = gameObject.GetComponentInChildren<RawImage>();
+        colorDisplayer = transform.Find("Color").GetComponent<RawImage>();
         colorDisplayer.color = colors[selectedColorIndex];
         notice = gameObject.transform.Find("Notice").gameObject;
+
+        RawImage background = GetComponent<RawImage>();
+        background.color = new Color(0.5f, 0.5f, 0.5f, 0.8f);
 
         gameObject.SetActive(false);
     }
@@ -42,34 +45,37 @@ public class ColorPanel : MonoBehaviour
     void Update()
     {
         float trend = Input.GetAxisRaw("Horizontal");
-        if (-0.2f <= trend && 0.2f <= trend)
+        if (-0.2f <= trend && trend <= 0.2f)
         {
             waitTime = 0;
             waitFlag = false;
         }
-        if (!waitFlag)
-        {
-            if (trend > 0.2)
-            {
-                selectedColorIndex = (selectedColorIndex + 1) % colors.Count;
-                waitFlag = true;
-                colorDisplayer.color = colors[selectedColorIndex];
-            }
-            else if (trend < -0.2)
-            {
-                selectedColorIndex = (selectedColorIndex - 1 + colors.Count) % colors.Count;
-                waitFlag = true;
-                colorDisplayer.color = colors[selectedColorIndex];
-            }
-        }
         else
         {
-            // add delay after each choice for continuous moving up or down
-            waitTime += Time.deltaTime;
-            if (waitTime > 0.5f)
+            if (!waitFlag)
             {
-                waitTime = 0;
-                waitFlag = false;
+                if (trend > 0.2)
+                {
+                    selectedColorIndex = (selectedColorIndex + 1) % colors.Count;
+                    waitFlag = true;
+                    colorDisplayer.color = colors[selectedColorIndex];
+                }
+                else if (trend < -0.2)
+                {
+                    selectedColorIndex = (selectedColorIndex - 1 + colors.Count) % colors.Count;
+                    waitFlag = true;
+                    colorDisplayer.color = colors[selectedColorIndex];
+                }
+            }
+            else
+            {
+                // add delay after each choice for continuous moving up or down
+                waitTime += Time.deltaTime;
+                if (waitTime > 0.5f)
+                {
+                    waitTime = 0;
+                    waitFlag = false;
+                }
             }
         }
     }

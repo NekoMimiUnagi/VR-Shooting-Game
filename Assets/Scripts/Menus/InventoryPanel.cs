@@ -39,9 +39,12 @@ public class InventoryPanel : MonoBehaviour
         reticleActivator = GameObject.Find("ReticleActivator").GetComponent<ReticleActivator>();
 
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
-        RawImage[] images_tmp = gameObject.GetComponentsInChildren<RawImage>();
         int selected = selectedV * rowLength + selectedH;
-        images = new List<RawImage>(images_tmp);
+        images = new List<RawImage>();
+        foreach (Transform child in transform)
+        {
+            images.Add(child.GetComponent<RawImage>());
+        }
         for (int i = 0; i < inventory.Count(); ++i)
         {
             GameObject go = inventory.Get(i);
@@ -55,10 +58,10 @@ public class InventoryPanel : MonoBehaviour
                 images[i].texture = null;
             }
         }
-        if (0 < images.Count)
-        {
-            images[selected].GetComponent<RawImage>().color = new Color(1, 1, 0, 1);
-        }
+        images[selected].GetComponent<RawImage>().color = Color.yellow;
+
+        RawImage background = GetComponent<RawImage>();
+        background.color = new Color(0.5f, 0.5f, 0.5f, 0.8f);
 
         gameObject.SetActive(false);
     }
@@ -68,8 +71,6 @@ public class InventoryPanel : MonoBehaviour
     {
         float trendV = Input.GetAxisRaw("Vertical");
         float trendH = Input.GetAxisRaw("Horizontal");
-        //Debug.Log(trendV);
-        //Debug.Log(trendH);
         if (-0.2f <= trendV && trendV <= 0.2f &&
             -0.2f <= trendH && trendH <= 0.2f)
         {
@@ -87,7 +88,8 @@ public class InventoryPanel : MonoBehaviour
             }
             else if (trendV < -0.2)
             {
-                selectedV = Mathf.Min(selectedV + 1, (int)Mathf.Ceil(1.0f * images.Count / rowLength) - 1);
+                selectedV = Mathf.Min(selectedV + 1,
+                                      (int)Mathf.Ceil(1.0f * images.Count / rowLength) - 1);
                 moveFlag = true;
             }
             if (trendH > 0.2)
@@ -104,7 +106,11 @@ public class InventoryPanel : MonoBehaviour
             {
                 images[selected_old].GetComponent<RawImage>().color = Color.white;
                 int selected = selectedV * rowLength + selectedH;
-                images[selected].GetComponent<RawImage>().color = new Color(1, 1, 0, 1);
+                images[selected].GetComponent<RawImage>().color = Color.yellow;
+
+                RawImage background = GetComponent<RawImage>();
+                background.color = new Color(0.5f, 0.5f, 0.5f, 0.8f);
+
                 waitFlag = true;
             }
         }
@@ -126,7 +132,6 @@ public class InventoryPanel : MonoBehaviour
             {
                 // choose weapon but do not remove (optional)
                 go.SetActive(true);
-                //go.GetComponent<GrabMovement>().enabled = true;
                 //inventory.Remove(selected);
                 //images.RemoveAt(selected);
 

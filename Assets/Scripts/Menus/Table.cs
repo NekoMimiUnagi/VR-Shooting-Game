@@ -16,7 +16,7 @@ public class Table : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("js7") && flag)
+        if (Input.GetButtonDown("js5") && flag)
         {
             /*
             if (null == inventoryPanel)

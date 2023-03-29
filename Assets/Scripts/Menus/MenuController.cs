@@ -49,6 +49,9 @@ public class MenuController : MonoBehaviour
             }
         }
         buttons[0].color = Color.yellow;
+
+        RawImage background = GetComponent<RawImage>();
+        background.color = new Color(0.5f, 0.5f, 0.5f, 0.8f);
     }
 
     // Update is called once per frame

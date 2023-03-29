@@ -30,6 +30,9 @@ public class VolumePanel : MonoBehaviour
         volume = slider.value;
         audioSource.volume = volume;
 
+        RawImage background = GetComponent<RawImage>();
+        background.color = new Color(0.5f, 0.5f, 0.5f, 0.8f);
+
         gameObject.SetActive(false);
     }
 
