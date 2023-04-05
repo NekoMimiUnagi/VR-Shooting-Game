@@ -300,7 +300,7 @@ InputManager:
     negativeButton: 
     positiveButton: 0
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: joystick button 0
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -332,7 +332,7 @@ InputManager:
     negativeButton: 
     positiveButton: 2
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: joystick button 2
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -342,13 +342,13 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Cancel
+    m_Name: js3
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: 3
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: joystick button 3
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -358,13 +358,13 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Cancel
+    m_Name: js4
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: 4
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: joystick button 4
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -374,13 +374,13 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Cancel
+    m_Name: js5
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: 5
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: joystick button 5
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -390,13 +390,13 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Cancel
+    m_Name: js6
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: 6
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: joystick button 6
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -406,13 +406,13 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Cancel
+    m_Name: js7
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: 7
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: joystick button 7
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -422,13 +422,13 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Cancel
+    m_Name: js8
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: 8
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: joystick button 8
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -438,13 +438,13 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Cancel
+    m_Name: js9
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: 9
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: joystick button 9
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -454,13 +454,13 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Cancel
+    m_Name: js10
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: k
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: joystick button 10
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -470,13 +470,13 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Cancel
+    m_Name: js11
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: l
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: joystick button 11
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -486,13 +486,13 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Cancel
+    m_Name: js12
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: m
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: joystick button 12
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -502,13 +502,13 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Cancel
+    m_Name: js13
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: n
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: joystick button 13
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -518,13 +518,13 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Cancel
+    m_Name: js14
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: o
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: joystick button 14
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
