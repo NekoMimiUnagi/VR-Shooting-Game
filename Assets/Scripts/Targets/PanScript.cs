@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class PanScript : MonoBehaviour
 {
-    public float initialSpeed = 5f;
-    public float gravity = -9.81f;
+    public float initialSpeed = 15f;
     private Vector3 velocity;
 
     void Start()
@@ -13,7 +12,6 @@ public class PanScript : MonoBehaviour
 
     void Update()
     {
-        velocity.y += gravity * Time.deltaTime;
         transform.position += velocity * Time.deltaTime;
     }
 
@@ -22,6 +20,10 @@ public class PanScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Terrain"))
         {
             Destroy(this.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Destroy(collision.gameObject);
         }
     }
 }

@@ -6,21 +6,18 @@ public class ShootWeapon : MonoBehaviour
 {   
     public Rigidbody projectile;
     public float speed=500f;
-    public Transform target;
+//    public Transform target;
     public int magazineSize = 6;
-    public float reloadTime = 0.5f;
-    public float shootDelay = 1f;
+    public float reloadTime = 0.5f; // for each bullet
+    public float shootDelay = 1f; // for each bullet
     
-
-    private int currentMagazineSize ;
+    private int currentMagazineSize;
     private bool isReloading = false;
     private bool canShoot = true;
     // Start is called before the first frame update
     void Start()
     {
-       
-      currentMagazineSize = magazineSize;
-        
+        currentMagazineSize = magazineSize;
     }
 
     // Update is called once per frame
@@ -30,16 +27,13 @@ public class ShootWeapon : MonoBehaviour
             return;
         }
 
-        if(Input.GetButton("js1")&& currentMagazineSize>0 && GameObject.FindWithTag("Rifle")==true&& canShoot)
+        if(Input.GetButton("js1") && currentMagazineSize>0 && GameObject.FindWithTag("Rifle")==true && canShoot)
         {
-            
             canShoot = false;
             shot();
             currentMagazineSize--;
             Debug.Log(currentMagazineSize);
             StartCoroutine(ShootDelay());
-            
-            
         }
         else if(Input.GetButtonDown("js1") && currentMagazineSize > 0 && GameObject.FindWithTag("Rifle")==false){
             
@@ -47,9 +41,6 @@ public class ShootWeapon : MonoBehaviour
             currentMagazineSize--;
             Debug.Log("Shot");
             Debug.Log(currentMagazineSize);
-
-           
-
         }
         else if (Input.GetButtonDown("js1") && currentMagazineSize == 0){
             Debug.Log("Out of Ammo");
@@ -62,41 +53,36 @@ public class ShootWeapon : MonoBehaviour
 
     void shot()
     {
-            Rigidbody instantiatedProjectile = Instantiate(projectile,transform.position,transform.rotation) as Rigidbody;
-            Vector3 direction = (target.position - transform.position).normalized;
-
-            instantiatedProjectile.velocity = transform.TransformDirection(new Vector3(-0.5f,1,10))*speed;
-            
-
+        Rigidbody instantiatedProjectile = Instantiate(projectile,transform.position,transform.rotation) as Rigidbody;
+//        Vector3 direction = (target.position - transform.position).normalized;
+        instantiatedProjectile.velocity = transform.TransformDirection(new Vector3(-0.5f,1,10))*speed;
     }
+
     IEnumerator Reload()
     {
         isReloading = true;
-        Debug.Log("Reloading...");
+        Debug.Log(gameObject.name + " Reloading...");
        
         while(currentMagazineSize < magazineSize)
         {
-            Debug.Log("Reloading..."+ currentMagazineSize);
+            Debug.Log(gameObject.name + " Reloading..." + currentMagazineSize);
             yield return new WaitForSeconds(reloadTime);
         
             currentMagazineSize++;
         }
         
-        Debug.Log("Reloaded.");
+        Debug.Log(gameObject.name + " Reloaded.");
         isReloading = false;
     }
  
-//  shot delay for rifle
+    //  shot delay for rifle
     IEnumerator ShootDelay()
     {
-      
         yield return new WaitForSeconds(shootDelay);
         canShoot = true;
     }
 
-
-
-// collider for rifle
+    // collider for rifle
     private void OnCollisionEnter(Collision other)
     {
         if(other.gameObject.tag == "Target"){
@@ -107,5 +93,4 @@ public class ShootWeapon : MonoBehaviour
         Debug.Log("Hit");
         Destroy(gameObject);
     }
-  
 }

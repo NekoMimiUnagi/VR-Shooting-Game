@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class InventoryPanel : MonoBehaviour
 {
@@ -128,12 +129,21 @@ public class InventoryPanel : MonoBehaviour
         {
             int selected = selectedV * rowLength + selectedH;
             GameObject go = inventory.Get(selected);
-            if (null != go)
+            if (null != go && "Lobby" != SceneManager.GetActiveScene().name)
             {
-                // choose weapon but do not remove (optional)
-                go.SetActive(true);
-                //inventory.Remove(selected);
-                //images.RemoveAt(selected);
+                // find weapon placeholder's transform
+                Transform weaponTransform = GameObject.FindWithTag("Weapon").transform;
+                // delete all existing weapons
+                foreach (Transform child in weaponTransform)
+                {
+                    Destroy(child.gameObject);
+                }
+                // clone the selected weapon to placeholder
+                GameObject weapon = Instantiate(go,
+                                                weaponTransform.position,
+                                                weaponTransform.rotation,
+                                                weaponTransform);
+                weapon.SetActive(true);
 
                 // close the panel
                 Hide();
