@@ -22,11 +22,7 @@ public class Inventory : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this);
         }
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
         // load all buttons in the panel
         foreach (Transform child in gameObject.transform)
         {
@@ -35,12 +31,6 @@ public class Inventory : MonoBehaviour
             inventory.Add(child.gameObject);
             child.gameObject.SetActive(false);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public GameObject Get(int index)
