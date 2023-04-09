@@ -30,6 +30,7 @@ public class Teleportation : MonoBehaviour
         // Add virtual place of lobby for all scenes
         else
         {
+            // add shooting range place
             GameObject lobby = GameObject.Find("Lobby");
             teleportationTargets.Add(lobby);
             bounds.Add(lobby.GetComponent<Collider>().bounds);
@@ -44,7 +45,10 @@ public class Teleportation : MonoBehaviour
             string fromSceneName = playerData.GetFromSceneName(gameObject.name);
             if ("Lobby" == fromSceneName)
             {
-                transform.position = bounds[0].center + vector;
+                // teleport to shooting range
+                GameObject shootingRange = GameObject.Find("ShootingRange");
+                Bounds shootingRangeBound = shootingRange.GetComponent<Collider>().bounds;
+                transform.position = shootingRangeBound.center + vector;
             }
             else
             {

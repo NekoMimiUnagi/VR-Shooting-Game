@@ -33,6 +33,7 @@ public class Inventory : MonoBehaviour
             if (null == child)
                 continue;
             inventory.Add(child.gameObject);
+            child.gameObject.SetActive(false);
         }
     }
 
