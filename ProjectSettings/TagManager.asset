@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Reticle
+  - Target
+  - Rifle
+  - Terrain
+  - Bullet
+  - Weapon
   layers:
   - Default
   - TransparentFX
