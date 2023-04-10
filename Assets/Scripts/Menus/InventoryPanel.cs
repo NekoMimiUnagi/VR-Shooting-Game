@@ -70,6 +70,12 @@ public class InventoryPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Load camera for non-lobby scenes
+        if (GetComponent<Canvas>().worldCamera is null)
+        {
+            GetComponent<Canvas>().worldCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        }
+
         float trendV = Input.GetAxisRaw("Vertical");
         float trendH = Input.GetAxisRaw("Horizontal");
         if (-0.2f <= trendV && trendV <= 0.2f &&
@@ -129,7 +135,7 @@ public class InventoryPanel : MonoBehaviour
         {
             int selected = selectedV * rowLength + selectedH;
             GameObject go = inventory.Get(selected);
-            if (null != go && "Lobby" != SceneManager.GetActiveScene().name)
+            if (null != go && "MainLobby" != SceneManager.GetActiveScene().name)
             {
                 // find weapon placeholder's transform
                 Transform weaponTransform = GameObject.FindWithTag("Weapon").transform;
