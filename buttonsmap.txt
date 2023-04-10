@@ -1,0 +1,7 @@
+setting 11
+x 2
+y 3 jump
+a 10 submit
+b 5
+open 1 cancel
+ok 0 7 submit

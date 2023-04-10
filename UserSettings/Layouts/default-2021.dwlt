@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1858
     height: 1037
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Game
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 350}
   m_MaxSize: {x: 10000, y: 10000}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 27
+  controlID: 62
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -68,8 +68,8 @@ MonoBehaviour:
     y: 0
     width: 320
     height: 987
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -317,36 +317,36 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/music
+    - Assets/Scripts/Menus
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/music
+  - Assets/Scripts/Menus
   m_LastFoldersGridSize: 96
   m_LastProjectPath: C:\Users\LeeRu\Documents\Unity HW\VR-Shooting-Game
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 180}
-    m_SelectedIDs: c4970000
-    m_LastClickedID: 38852
-    m_ExpandedIDs: 000000008697000088970000809b0000429e0000649e0000889e00008c9e0000969e0000a8e6000016e8030030ea030086ea030000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 123}
+    m_SelectedIDs: 58630000
+    m_LastClickedID: 25432
+    m_ExpandedIDs: 00000000e06200001e63000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: shotgun2
-      m_OriginalName: shotgun2
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 256584
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 5}
     m_SearchString: 
@@ -360,7 +360,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000008697000088970000
+    m_ExpandedIDs: 00000000e0620000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -490,21 +490,21 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 2a68f9ffaeaff9fffeaff9ff8eb1f9ffbae3f9ff46e4f9ffe0e7f9fff820faff6253faff6653faff0654faffce8bfafff4bdfafff8bdfaff98befaff70f6faff4e2afbff522afbfff22afbffc29cfbff42cffbffb2c7fcff5afafcff2eb4fdff58b8fdffb66bfeffecb9feff0cbafeff10bafeffb0bafeff7af1feff6c2bffff6c2dffff9240ffff30fbfffff4ffffffe8e301005ab30300beb3030016ff0300400604008a2205009c220500dc5d0500ee5d0500886605009a6605007268050080680500a8970500
+      m_ExpandedIDs: 32fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Sound
-        m_OriginalName: Sound
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 366504
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 4}
       m_SearchString: 
@@ -772,9 +772,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -4.2176437, y: 1.6329103, z: 1.2263489}
+    m_Target: {x: 1.1136498, y: 0.24450564, z: 3.17776}
     speed: 2
-    m_Value: {x: -4.2176437, y: 1.6329103, z: 1.2263489}
+    m_Value: {x: 1.1136498, y: 0.24450564, z: 3.17776}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -821,20 +821,20 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.13470492, y: 0.8477599, z: -0.257245, w: 0.44398594}
+    m_Target: {x: 0.4747185, y: -0.32678646, z: 0.19551058, w: 0.79358155}
     speed: 2
-    m_Value: {x: 0.13469544, y: 0.8477003, z: -0.2572269, w: 0.4439547}
+    m_Value: {x: 0.47468457, y: -0.3267631, z: 0.1954966, w: 0.7935248}
   m_Size:
-    m_Target: 5.9498205
+    m_Target: 6.1128044
     speed: 2
-    m_Value: 5.9498205
+    m_Value: 6.1128044
   m_Ortho:
     m_Target: 0
     speed: 2
     m_Value: 0
   m_CameraSettings:
-    m_Speed: 1
-    m_SpeedNormalized: 0.5
+    m_Speed: 1.06047
+    m_SpeedNormalized: 0.53
     m_SpeedMin: 0.001
     m_SpeedMax: 2
     m_EasingEnabled: 1

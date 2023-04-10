@@ -18,7 +18,7 @@ public class Teleportation : MonoBehaviour
     void Start()
     {
         // Add virtual place of all scenes for lobby
-        if ("Lobby" == SceneManager.GetActiveScene().name)
+        if ("MainLobby" == SceneManager.GetActiveScene().name)
         {
             for (int i = 1; i <= 3; ++i)
             {
@@ -44,7 +44,6 @@ public class Teleportation : MonoBehaviour
             string fromSceneName = playerData.GetFromSceneName(gameObject.name);
             (Vector3 vector, Quaternion rotation) = playerData.GetRelativeTransform(gameObject.name);
 
-            Debug.Log(fromSceneName);
             float y = 0f;
             // rotate relative position vector based on scenes
             if ("Scene1" == SceneManager.GetActiveScene().name)
@@ -60,7 +59,7 @@ public class Teleportation : MonoBehaviour
             {
                 ;
             }
-            else if ("Lobby" == SceneManager.GetActiveScene().name)
+            else if ("MainLobby" == SceneManager.GetActiveScene().name)
             {
                 if ("Scene1" == fromSceneName)
                 {
@@ -76,7 +75,7 @@ public class Teleportation : MonoBehaviour
                 }
             }
             // assign stored position to the player in the current scene
-            if ("Lobby" == fromSceneName)
+            if ("MainLobby" == fromSceneName)
             {
                 // teleport to shooting range
                 GameObject shootingRange = GameObject.Find("ShootingRange");
@@ -119,7 +118,7 @@ public class Teleportation : MonoBehaviour
                 shootingRangeNotice.transform.Find("Ready").gameObject.SetActive(true);
 
                 // if shooting, the player is ready
-                if (Input.GetButtonDown("js7"))
+                if (Input.GetButtonDown("js5"))
                 {
                     readyFlag = !readyFlag;
                 }
@@ -127,34 +126,34 @@ public class Teleportation : MonoBehaviour
                 if (readyFlag)
                 {
                     // pop text to mention player to push shoot button to cancel ready status
-                    if ("Lobby" == SceneManager.GetActiveScene().name)
+                    if ("MainLobby" == SceneManager.GetActiveScene().name)
                     {
-                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press OK to cancel ready";
+                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press B to cancel ready";
                     }
 
                     // teleport to corresponding space
                     Vector3 positionToCenter = p_point - bounds[i].center;
                     playerData.UpdateRelativeTransform(gameObject.name, positionToCenter, mainCamera.transform.rotation);
                     playerData.UpdateFromSceneName(gameObject.name, SceneManager.GetActiveScene().name);
-                    if ("Lobby" == SceneManager.GetActiveScene().name)
+                    if ("MainLobby" == SceneManager.GetActiveScene().name)
                     {
                         SceneManager.LoadScene($"Scene{i+1}", LoadSceneMode.Single);
                     }
                     else
                     {
-                        SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+                        SceneManager.LoadScene("MainLobby", LoadSceneMode.Single);
                     }
                 }
                 else
                 {
                     // pop text to mention player to push shoot button to active ready status
-                    if ("Lobby" == SceneManager.GetActiveScene().name)
+                    if ("MainLobby" == SceneManager.GetActiveScene().name)
                     {
-                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press OK to get ready";
+                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press B to get ready";
                     }
                     else
                     {
-                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press OK to go lobby";
+                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press B to go lobby";
                     }
                 }
             }
