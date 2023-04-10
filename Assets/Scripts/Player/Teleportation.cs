@@ -41,20 +41,58 @@ public class Teleportation : MonoBehaviour
         mainCamera = GameObject.FindWithTag("MainCamera");
         if (playerData.Exists(gameObject.name))
         {
-            (Vector3 vector, Quaternion rotation) = playerData.GetRelativeTransform(gameObject.name);
             string fromSceneName = playerData.GetFromSceneName(gameObject.name);
+            (Vector3 vector, Quaternion rotation) = playerData.GetRelativeTransform(gameObject.name);
+
+            Debug.Log(fromSceneName);
+            float y = 0f;
+            // rotate relative position vector based on scenes
+            if ("Scene1" == SceneManager.GetActiveScene().name)
+            {
+                ;
+            }
+            else if ("Scene2" == SceneManager.GetActiveScene().name)
+            {
+                vector = Quaternion.AngleAxis(90, Vector3.up) * vector;
+                y = 2.1f; // test result in the scene2
+            }
+            else if ("Scene2" == SceneManager.GetActiveScene().name)
+            {
+                ;
+            }
+            else if ("Lobby" == SceneManager.GetActiveScene().name)
+            {
+                if ("Scene1" == fromSceneName)
+                {
+                    ;
+                }
+                else if ("Scene2" == fromSceneName)
+                {
+                    vector = Quaternion.AngleAxis(-90, Vector3.up) * vector;
+                }
+                else if ("Scene3" == fromSceneName)
+                {
+                    ;
+                }
+            }
+            // assign stored position to the player in the current scene
             if ("Lobby" == fromSceneName)
             {
                 // teleport to shooting range
                 GameObject shootingRange = GameObject.Find("ShootingRange");
                 Bounds shootingRangeBound = shootingRange.GetComponent<Collider>().bounds;
                 transform.position = shootingRangeBound.center + vector;
+                transform.position = new Vector3(transform.position.x,
+                                                 y,
+                                                 transform.position.z);
             }
             else
             {
                 int index = int.Parse(fromSceneName.Substring(fromSceneName.Length - 1, 1));
                 transform.position = bounds[index-1].center + vector;
             }
+
+            // assign stored rotation to the player in the current scene
             mainCamera.transform.rotation = rotation;
         }
     }
