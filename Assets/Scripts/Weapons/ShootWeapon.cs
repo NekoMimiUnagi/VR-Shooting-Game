@@ -11,7 +11,7 @@ public class ShootWeapon : MonoBehaviour
     public float reloadTime = 0.5f; // for each bullet
     public float shootDelay = 1f; // for each bullet
     
-    public int currentMagazineSize;
+    private int currentMagazineSize;
     private bool isReloading = false;
     private bool canShoot = true;
 
