@@ -11,9 +11,11 @@ public class ShootWeapon : MonoBehaviour
     public float reloadTime = 0.5f; // for each bullet
     public float shootDelay = 1f; // for each bullet
     
-    private int currentMagazineSize;
+    public int currentMagazineSize;
     private bool isReloading = false;
     private bool canShoot = true;
+
+    public TMPro.TextMeshProUGUI text;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +51,7 @@ public class ShootWeapon : MonoBehaviour
         else if (Input.GetButtonDown("js2")){
             StartCoroutine(Reload());
         }
+        text.text = currentMagazineSize + "/" + magazineSize;
     }
 
     void shot()
