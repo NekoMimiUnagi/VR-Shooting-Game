@@ -94,6 +94,13 @@ public class Teleportation : MonoBehaviour
             // assign stored rotation to the player in the current scene
             mainCamera.transform.rotation = rotation;
         }
+
+        // restore speed after teleportation
+        if (playerData.Exists(gameObject.name))
+        {
+            CharacterMovement charaMove = GameObject.Find(gameObject.name).GetComponent<CharacterMovement>();
+            charaMove.speed = playerData.GetSpeed(gameObject.name);
+        }
     }
 
     // Update is called once per frame

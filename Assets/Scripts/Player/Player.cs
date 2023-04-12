@@ -9,6 +9,8 @@ public class Player
     private Vector3 relativePosition;
     private Quaternion faceTo;
     private string fromSceneName;
+    private float speed = 0;
+    private bool speedLock = false;
 
     public Player(string newNickName)
     {
@@ -43,6 +45,16 @@ public class Player
         fromSceneName = newFromSceneName;
     }
 
+    public void UpdateSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
+
+    public void UpdateSpeedLock(bool lockStatus)
+    {
+        speedLock = lockStatus;
+    }
+
     public string GetNickName()
     {
         return nickName;
@@ -61,5 +73,15 @@ public class Player
     public string GetFromSceneName()
     {
         return fromSceneName;
+    }
+
+    public float GetSpeed()
+    {
+        return speed;
+    }
+
+    public bool GetSpeedLock()
+    {
+        return speedLock;
     }
 }

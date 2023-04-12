@@ -17,7 +17,7 @@ public class MenuSpeed : MonoBehaviour
     {
         speedCtrl = GameObject.Find("SpeedController").GetComponent<SpeedController>();
         gameObject.GetComponentInChildren<TMP_Text>().text = modes[toggle];
-        speedCtrl.SetSpeed(speeds[toggle]);
+        speedCtrl.SetSpeed("Player", speeds[toggle]); // TODO: find the name of current player
     }
 
     // Update is called once per frame
@@ -30,6 +30,6 @@ public class MenuSpeed : MonoBehaviour
     {
         toggle = (toggle + 1) % speeds.Count;
         gameObject.GetComponentInChildren<TMP_Text>().text = modes[toggle];
-        speedCtrl.SetSpeed(speeds[toggle]);
+        speedCtrl.SetSpeed("Player", speeds[toggle]); // TODO: find the name of current player
     }
 }
