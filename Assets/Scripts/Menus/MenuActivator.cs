@@ -5,14 +5,6 @@ using UnityEditor;
 
 public class MenuActivator : MonoBehaviour
 {
-    /*
-    public GameObject mainMenu;
-    public GameObject lobbyMenu;
-    public GameObject settingsPanel;
-    public GameObject colorPanel;
-    public GameObject volumePanel;
-    public GameObject inventoryPanel;
-    */
     private GameObject mainMenu;
     private GameObject lobbyMenu;
     private GameObject settingsPanel;

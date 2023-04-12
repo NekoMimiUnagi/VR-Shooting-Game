@@ -30,7 +30,7 @@ public class ColorPanel : MonoBehaviour
         speedCtrl = GameObject.Find("SpeedController").GetComponent<SpeedController>();
         reticleActivator = GameObject.Find("ReticleActivator").GetComponent<ReticleActivator>();
 
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.Find("Player");
         colorDisplayer = transform.Find("Color").GetComponent<RawImage>();
         colorDisplayer.color = colors[selectedColorIndex];
         notice = gameObject.transform.Find("Notice").gameObject;

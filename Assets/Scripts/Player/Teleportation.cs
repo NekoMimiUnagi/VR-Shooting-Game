@@ -37,9 +37,10 @@ public class Teleportation : MonoBehaviour
         }
 
         playerData = GameObject.Find("PlayerData").GetComponent<PlayerData>();
+        GameObject mainMenu = GameObject.Find("MainMenu");
 
         // restore speed after teleportation
-        if (playerData.Exists(gameObject.name))
+        if (playerData.Exists(gameObject.name) && (null == mainMenu || !mainMenu.activeSelf))
         {
             CharacterMovement charaMove = GameObject.Find(gameObject.name).GetComponent<CharacterMovement>();
             charaMove.speed = playerData.GetSpeed(gameObject.name);

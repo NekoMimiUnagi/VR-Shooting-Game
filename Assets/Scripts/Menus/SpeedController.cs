@@ -20,13 +20,12 @@ public class SpeedController : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this);
         }
-        playerData = GameObject.Find("PlayerData").GetComponent<PlayerData>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        playerData = GameObject.Find("PlayerData").GetComponent<PlayerData>();
     }
 
     // Update is called once per frame
@@ -35,7 +34,7 @@ public class SpeedController : MonoBehaviour
         
     }
 
-    public void SetSpeed(string playerName, int new_speed)
+    public void SetSpeed(string playerName, float new_speed)
     {
         playerData.UpdateSpeed(playerName, new_speed);
         if (!playerData.GetSpeedLock(playerName))
@@ -47,9 +46,12 @@ public class SpeedController : MonoBehaviour
 
     public void Lock(string playerName="Player")
     {
+        if (playerData is null)
+        {
+            playerData = GameObject.Find("PlayerData").GetComponent<PlayerData>();
+        }
         charaMove = GameObject.Find(playerName).GetComponent<CharacterMovement>();
         // If lock for multiple times, only the first time affect the speed
-        //Debug.Log(playerData);
         if (!playerData.GetSpeedLock(playerName))
         {
             playerData.UpdateSpeedLock(playerName, true);

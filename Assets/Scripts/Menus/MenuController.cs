@@ -37,7 +37,6 @@ public class MenuController : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-
         // load all buttons in the panel
         foreach (Transform child in gameObject.transform)
         {

@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class InventoryPanel : MonoBehaviour
 {
-    // public static InventoryPanel instance { get; private set; }
-
     private List<RawImage> images;
     private Inventory inventory;
     private int rowLength = 3;
@@ -19,21 +17,6 @@ public class InventoryPanel : MonoBehaviour
     private SpeedController speedCtrl;
     private ReticleActivator reticleActivator;
 
-    /*
-    void Awake()
-    {
-        if (null != instance)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-    }
-    */
-    
     // Start is called before the first frame update
     void Start()
     {
