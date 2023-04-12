@@ -134,6 +134,7 @@ public class InventoryPanel : MonoBehaviour
                                                 weaponTransform.position,
                                                 weaponTransform.rotation,
                                                 weaponTransform);
+                weapon.tag = go.tag;
                 weapon.SetActive(true);
 
                 // close the panel
