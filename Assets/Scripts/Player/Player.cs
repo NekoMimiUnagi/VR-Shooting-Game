@@ -8,7 +8,7 @@ public class Player
     private Color color;
     private Vector3 relativePosition;
     private Quaternion faceTo;
-    private string fromSceneName;
+    private string fromSceneName = "";
     private float speed = 0;
     private bool speedLock = false;
 

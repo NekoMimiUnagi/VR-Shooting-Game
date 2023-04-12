@@ -26,7 +26,10 @@ public class MagazineNotice : MonoBehaviour
         else
         {
             GameObject weaponHolder = GameObject.FindWithTag("Weapon");
-            weapon = weaponHolder.transform.GetChild(0).GetComponentInChildren<ShootWeapon>();
+            if (0 < weaponHolder.transform.childCount)
+            {
+                weapon = weaponHolder.transform.GetChild(0).GetComponentInChildren<ShootWeapon>();
+            }
         }
     }
 }
