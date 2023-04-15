@@ -1,20 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class MenuActivator : MonoBehaviour
 {
-    public GameObject mainMenu;
-    public GameObject lobbyMenu;
-    public GameObject settingsPanel;
-    public GameObject colorPanel;
-    public GameObject volumePanel;
-    public GameObject inventoryPanel;
+    private GameObject mainMenu;
+    private GameObject lobbyMenu;
+    private GameObject settingsPanel;
+    private GameObject colorPanel;
+    private GameObject volumePanel;
+    private GameObject inventoryPanel;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameObject[] gameObjects;
+        gameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+        foreach (GameObject go in gameObjects)
+        {
+            if ("Menu" != go.tag)
+            {
+                continue;
+            }
+            switch (go.name)
+            {
+                case "MainMenu":
+                    mainMenu = go;
+                    break;
+                case "LobbyMenu":
+                    lobbyMenu = go;
+                    break;
+                case "SettingsPanel":
+                    settingsPanel = go;
+                    break;
+                case "ColorPanel":
+                    colorPanel = go;
+                    break;
+                case "VolumePanel":
+                    volumePanel = go;
+                    break;
+                case "InventoryPanel":
+                    inventoryPanel = go;
+                    break;
+                default:
+                    Debug.Log(go.name + go.tag);
+                    break;
+            }
+        }
     }
 
     // Update is called once per frame

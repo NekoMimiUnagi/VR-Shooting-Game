@@ -10,11 +10,6 @@ public class PlayerData : MonoBehaviour
     // Key is the name of player object. Thus, this can store data of all players.
     private Dictionary<string, Player> players = new Dictionary<string, Player>();
 
-    //private Dictionary<string, Vector3> relativePosition = new Dictionary<string, Vector3>();
-    //private Dictionary<string, Quaternion> faceTo = new Dictionary<string, Quaternion>();
-    //private Dictionary<string, string> fromScene = new Dictionary<string, string>();
-    //private HashSet<string> gameStarted = new HashSet<string>();
-
     void Awake()
     {
         if (null != instance)
@@ -72,6 +67,26 @@ public class PlayerData : MonoBehaviour
         players[name].UpdateFromSceneName(sceneName);
     }
 
+    public void UpdateSpeed(string name, float newSpeed)
+    {
+        if (!players.ContainsKey(name))
+        {
+            players[name] = new Player(name);
+        }
+
+        players[name].UpdateSpeed(newSpeed);
+    }
+
+    public void UpdateSpeedLock(string name, bool lockStatus)
+    {
+        if (!players.ContainsKey(name))
+        {
+            players[name] = new Player(name);
+        }
+
+        players[name].UpdateSpeedLock(lockStatus);
+    }
+
     public void StartGame(string name)
     {
         players[name] = new Player(name);
@@ -116,5 +131,23 @@ public class PlayerData : MonoBehaviour
             return players[name].GetFromSceneName();
         }
         return "";
+    }
+
+    public float GetSpeed(string name)
+    {
+        if (players.ContainsKey(name))
+        {
+            return players[name].GetSpeed();
+        }
+        return 0;
+    }
+
+    public bool GetSpeedLock(string name)
+    {
+        if (players.ContainsKey(name))
+        {
+            return players[name].GetSpeedLock();
+        }
+        return false;
     }
 }

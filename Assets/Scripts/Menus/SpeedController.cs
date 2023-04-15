@@ -6,9 +6,8 @@ public class SpeedController : MonoBehaviour
 {
     public static SpeedController instance { get; private set; }
 
+    private PlayerData playerData = null;
     private CharacterMovement charaMove;
-    private float speed = 0;
-    private bool speedLock = false;
 
     void Awake()
     {
@@ -26,8 +25,7 @@ public class SpeedController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        charaMove = GameObject.FindWithTag("Player").GetComponent<CharacterMovement>();
-        speed = charaMove.speed;
+        playerData = GameObject.Find("PlayerData").GetComponent<PlayerData>();
     }
 
     // Update is called once per frame
@@ -36,38 +34,40 @@ public class SpeedController : MonoBehaviour
         
     }
 
-    public void SetSpeed(int new_speed)
+    public void SetSpeed(string playerName, float new_speed)
     {
-        if (speedLock)
+        playerData.UpdateSpeed(playerName, new_speed);
+        if (!playerData.GetSpeedLock(playerName))
         {
-            speed = new_speed;
-        }
-        else
-        {
+            charaMove = GameObject.Find(playerName).GetComponent<CharacterMovement>();
             charaMove.speed = new_speed;
         }
     }
 
-    public void Lock()
+    public void Lock(string playerName="Player")
     {
-        charaMove = GameObject.FindWithTag("Player").GetComponent<CharacterMovement>();
-        // If lock for multiple times, only the first time affect the speed
-        if (!speedLock)
+        if (playerData is null)
         {
-            speedLock = true;
-            speed = charaMove.speed;
+            playerData = GameObject.Find("PlayerData").GetComponent<PlayerData>();
+        }
+        charaMove = GameObject.Find(playerName).GetComponent<CharacterMovement>();
+        // If lock for multiple times, only the first time affect the speed
+        if (!playerData.GetSpeedLock(playerName))
+        {
+            playerData.UpdateSpeedLock(playerName, true);
+            playerData.UpdateSpeed(playerName, charaMove.speed);
             charaMove.speed = 0;
         }
     }
 
-    public void Unlock()
+    public void Unlock(string playerName = "Player")
     {
-        charaMove = GameObject.FindWithTag("Player").GetComponent<CharacterMovement>();
+        charaMove = GameObject.Find(playerName).GetComponent<CharacterMovement>();
         // If unlock for multiple times, only the first time affect the speed
-        if (speedLock)
+        if (playerData.GetSpeedLock(playerName))
         {
-            speedLock = false;
-            charaMove.speed = speed;
+            playerData.UpdateSpeedLock(playerName, false);
+            charaMove.speed = playerData.GetSpeed(playerName);
         }
     }
 }

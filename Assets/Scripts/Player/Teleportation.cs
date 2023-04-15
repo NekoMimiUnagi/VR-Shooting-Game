@@ -17,7 +17,7 @@ public class Teleportation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Add virtual place of all scenes for lobby
+        // Add virtual place of all scenes for the lobby
         if ("MainLobby" == SceneManager.GetActiveScene().name)
         {
             for (int i = 1; i <= 3; ++i)
@@ -36,8 +36,17 @@ public class Teleportation : MonoBehaviour
             bounds.Add(lobby.GetComponent<Collider>().bounds);
         }
 
-        // restore position and facing direction after teleportation
         playerData = GameObject.Find("PlayerData").GetComponent<PlayerData>();
+        GameObject mainMenu = GameObject.Find("MainMenu");
+
+        // restore speed after teleportation
+        if (playerData.Exists(gameObject.name) && (null == mainMenu || !mainMenu.activeSelf))
+        {
+            CharacterMovement charaMove = GameObject.Find(gameObject.name).GetComponent<CharacterMovement>();
+            charaMove.speed = playerData.GetSpeed(gameObject.name);
+        }
+
+        // restore position and facing direction after teleportation
         mainCamera = GameObject.FindWithTag("MainCamera");
         if (playerData.Exists(gameObject.name))
         {
@@ -75,7 +84,11 @@ public class Teleportation : MonoBehaviour
                 }
             }
             // assign stored position to the player in the current scene
-            if ("MainLobby" == fromSceneName)
+            if ("" == fromSceneName)
+            {
+                return ;
+            }
+            else if ("MainLobby" == fromSceneName)
             {
                 // teleport to shooting range
                 GameObject shootingRange = GameObject.Find("ShootingRange");

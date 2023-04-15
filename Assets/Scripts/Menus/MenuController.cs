@@ -22,22 +22,21 @@ public class MenuController : MonoBehaviour
         // use two controller to control speed anc reticle
         speedCtrl = GameObject.Find("SpeedController").GetComponent<SpeedController>();
         reticleActivator = GameObject.Find("ReticleActivator").GetComponent<ReticleActivator>();
-
         PlayerData playerData = GameObject.Find("PlayerData").GetComponent<PlayerData>();
-        GameObject player = GameObject.FindWithTag("Player");
+        GameObject player = GameObject.Find("Player");
+
         // Show main menu when game starts
         if ("MainMenu" == gameObject.name && !playerData.Exists(player.name))
         {
             originMenuName = gameObject.name;
             reticleActivator.Hide();
-            speedCtrl.Lock();
             playerData.StartGame(player.name);
+            speedCtrl.Lock(player.name);
         }
         else
         {
             gameObject.SetActive(false);
         }
-
         // load all buttons in the panel
         foreach (Transform child in gameObject.transform)
         {
