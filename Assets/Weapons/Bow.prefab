@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 3010214834314800424}
   m_Layer: 0
   m_Name: Bow
-  m_TagString: Untagged
+  m_TagString: Bow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,8 +151,6 @@ MonoBehaviour:
   magazineSize: 1
   reloadTime: 3
   shootDelay: 0.1
-  currentMagazineSize: 0
-  text: {fileID: 3327288929591267024}
 --- !u!1 &8552838425010611374
 GameObject:
   m_ObjectHideFlags: 0

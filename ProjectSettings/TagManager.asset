@@ -11,6 +11,9 @@ TagManager:
   - Bullet
   - Weapon
   - Menu
+  - Crossbow
+  - Shotgun
+  - Bow
   layers:
   - Default
   - TransparentFX

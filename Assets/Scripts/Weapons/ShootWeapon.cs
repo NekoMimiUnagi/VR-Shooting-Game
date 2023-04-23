@@ -10,10 +10,12 @@ public class ShootWeapon : MonoBehaviour
     public int magazineSize = 6;
     public float reloadTime = 0.5f; // for each bullet
     public float shootDelay = 1f; // for each bullet
-    
     private int currentMagazineSize;
     private bool isReloading = false;
     private bool canShoot = true;
+    private int damage = 0;
+    private int weaponScore = 0;
+    private int ammoScore = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -27,15 +29,17 @@ public class ShootWeapon : MonoBehaviour
         if(isReloading){
             return;
         }
-
-        if(Input.GetButton("js0") && currentMagazineSize>0 && GameObject.FindWithTag("Rifle")==true && canShoot)
+        // rifle shooting
+        if(Input.GetButton("js0") && currentMagazineSize> 0 && GameObject.FindWithTag("Rifle")==true && canShoot)
         {
             canShoot = false;
             shot();
+            
             currentMagazineSize--;
             Debug.Log(currentMagazineSize);
             StartCoroutine(ShootDelay());
         }
+        // other weapon shooting, shotgun, bow and crossbow
         else if(Input.GetButtonDown("js0") && currentMagazineSize > 0 && GameObject.FindWithTag("Rifle")==false){
             
             shot();
@@ -43,10 +47,12 @@ public class ShootWeapon : MonoBehaviour
             Debug.Log("Shot");
             Debug.Log(currentMagazineSize);
         }
+        // empty ammo reload
         else if (Input.GetButtonDown("js0") && currentMagazineSize == 0){
             Debug.Log("Out of Ammo");
             StartCoroutine(Reload());
         }
+        // reload
         else if (Input.GetButtonDown("js2")){
             StartCoroutine(Reload());
         }
@@ -98,5 +104,62 @@ public class ShootWeapon : MonoBehaviour
     public string GetRemainingAmmo()
     {
         return currentMagazineSize.ToString() + "/" + magazineSize.ToString();
+    }
+    
+    // ammo type score
+    public int GetAmmoScore()
+    {
+        if(GameObject.FindWithTag("Rifle")){
+            ammoScore = 10;
+        } 
+        else if(GameObject.FindWithTag("Shotgun")){
+            ammoScore = 30;
+        }
+        else if(GameObject.FindWithTag("Crossbow")){
+            ammoScore = 100;
+        }
+        else if(GameObject.FindWithTag("Bow")){
+            ammoScore = 100;
+        }
+        return ammoScore;
+    }
+
+    // damage for different weapons
+    public int GetDamage()
+    {
+        if(GameObject.FindWithTag("Rifle")){
+            damage = 10;
+           
+        } 
+        else if(GameObject.FindWithTag("Shotgun")){
+            damage = 30;
+        }
+        else if(GameObject.FindWithTag("Crossbow")){
+            damage = 100;
+        }
+        else if(GameObject.FindWithTag("Bow")){
+            damage = 100;
+        }
+   
+       
+        return damage;
+    }
+
+// every weapon has different score
+    public int GetWeaponScore()
+    {
+        if(GameObject.FindWithTag("Rifle")){
+            weaponScore = 10;
+        } 
+        else if(GameObject.FindWithTag("Shotgun")){
+            weaponScore = 30;
+        }
+        else if(GameObject.FindWithTag("Crossbow")){
+            weaponScore = 50;
+        }
+        else if(GameObject.FindWithTag("Bow")){
+            weaponScore = 50;
+        }
+        return weaponScore;
     }
 }
