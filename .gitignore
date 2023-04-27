@@ -4,3 +4,4 @@ obj/
 Logs/
 *BackUpThisFolder*/
 *.mp4
+Build/
