@@ -22,14 +22,14 @@ public class ShootingRangeNotice : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.transform.Find("Ready").gameObject.SetActive(false);
+        transform.Find("Ready").gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         // Load camera when switching scenes
-        if (GetComponent<Canvas>().worldCamera is null)
+        if (null == GetComponent<Canvas>().worldCamera)
         {
             GetComponent<Canvas>().worldCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         }

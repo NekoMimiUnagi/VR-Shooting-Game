@@ -13,6 +13,7 @@ public class Teleportation : MonoBehaviour
     private bool readyFlag = false;
     private PlayerData playerData = null;
     private GameObject mainCamera = null;
+    private SpeedController speedCtrl = null;
 
     // Start is called before the first frame update
     void Start()
@@ -38,12 +39,13 @@ public class Teleportation : MonoBehaviour
 
         playerData = GameObject.Find("PlayerData").GetComponent<PlayerData>();
         GameObject mainMenu = GameObject.Find("MainMenu");
+        speedCtrl = GameObject.Find("SpeedController").GetComponent<SpeedController>();
 
         // restore speed after teleportation
         if (playerData.Exists(gameObject.name) && (null == mainMenu || !mainMenu.activeSelf))
         {
             CharacterMovement charaMove = GameObject.Find(gameObject.name).GetComponent<CharacterMovement>();
-            charaMove.speed = playerData.GetSpeed(gameObject.name);
+            charaMove.speed = speedCtrl.GetSpeed();
         }
 
         // restore position and facing direction after teleportation

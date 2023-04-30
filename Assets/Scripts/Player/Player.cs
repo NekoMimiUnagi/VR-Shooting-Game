@@ -4,28 +4,19 @@ using UnityEngine;
 
 public class Player
 {
-    private string nickName;
     private Color color;
     private Vector3 relativePosition;
     private Quaternion faceTo;
     private string fromSceneName = "";
-    private float speed = 0;
-    private bool speedLock = false;
 
-    public Player(string newNickName)
+    public Player()
     {
-        nickName = newNickName;
+        ;
     }
 
-    public Player(string newNickName, Color newColor)
+    public Player(Color newColor)
     {
-        nickName = newNickName;
         color = newColor;
-    }
-
-    public void UpdateNickName(string newNickName)
-    {
-        nickName = newNickName;
     }
 
     public void UpdateColor(Color newColor)
@@ -45,21 +36,6 @@ public class Player
         fromSceneName = newFromSceneName;
     }
 
-    public void UpdateSpeed(float newSpeed)
-    {
-        speed = newSpeed;
-    }
-
-    public void UpdateSpeedLock(bool lockStatus)
-    {
-        speedLock = lockStatus;
-    }
-
-    public string GetNickName()
-    {
-        return nickName;
-    }
-
     public Color GetColor()
     {
         return color;
@@ -73,15 +49,5 @@ public class Player
     public string GetFromSceneName()
     {
         return fromSceneName;
-    }
-
-    public float GetSpeed()
-    {
-        return speed;
-    }
-
-    public bool GetSpeedLock()
-    {
-        return speedLock;
     }
 }

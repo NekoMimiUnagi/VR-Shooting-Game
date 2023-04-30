@@ -23,23 +23,11 @@ public class PlayerData : MonoBehaviour
         }
     }
 
-    public void UpdateNickName(string name, string nickName)
-    {
-        if (!players.ContainsKey(name))
-        {
-            players[name] = new Player(nickName);
-        }
-        else
-        {
-            players[name].UpdateNickName(nickName);
-        }
-    }
-
     public void UpdateColor(string name, Color color)
     {
         if (!players.ContainsKey(name))
         {
-            players[name] = new Player(name, color);
+            players[name] = new Player(color);
         }
         else
         {
@@ -51,7 +39,7 @@ public class PlayerData : MonoBehaviour
     {
         if (!players.ContainsKey(name))
         {
-            players[name] = new Player(name);
+            players[name] = new Player();
         }
 
         players[name].UpdateRelativeTransform(vec, rot);
@@ -61,35 +49,15 @@ public class PlayerData : MonoBehaviour
     {
         if (!players.ContainsKey(name))
         {
-            players[name] = new Player(name);
+            players[name] = new Player();
         }
 
         players[name].UpdateFromSceneName(sceneName);
     }
 
-    public void UpdateSpeed(string name, float newSpeed)
-    {
-        if (!players.ContainsKey(name))
-        {
-            players[name] = new Player(name);
-        }
-
-        players[name].UpdateSpeed(newSpeed);
-    }
-
-    public void UpdateSpeedLock(string name, bool lockStatus)
-    {
-        if (!players.ContainsKey(name))
-        {
-            players[name] = new Player(name);
-        }
-
-        players[name].UpdateSpeedLock(lockStatus);
-    }
-
     public void StartGame(string name)
     {
-        players[name] = new Player(name);
+        players[name] = new Player();
     }
 
     public bool Exists(string name)
@@ -97,13 +65,9 @@ public class PlayerData : MonoBehaviour
         return players.ContainsKey(name);
     }
 
-    public string GetNickName(string name)
+    public bool GameStarted()
     {
-        if (players.ContainsKey(name))
-        {
-            return players[name].GetNickName();
-        }
-        return "";
+        return (players.Count > 0);
     }
 
     public Color GetColor(string name)
@@ -131,23 +95,5 @@ public class PlayerData : MonoBehaviour
             return players[name].GetFromSceneName();
         }
         return "";
-    }
-
-    public float GetSpeed(string name)
-    {
-        if (players.ContainsKey(name))
-        {
-            return players[name].GetSpeed();
-        }
-        return 0;
-    }
-
-    public bool GetSpeedLock(string name)
-    {
-        if (players.ContainsKey(name))
-        {
-            return players[name].GetSpeedLock();
-        }
-        return false;
     }
 }
