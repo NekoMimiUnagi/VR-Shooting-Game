@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerNetwork : NetworkBehaviour
 {
     private NetworkVariable<Color> color = new NetworkVariable<Color>(Color.white);
+    private NetworkVariable<bool> ready = new NetworkVariable<bool>(false);
 
     public override void OnNetworkSpawn()
     {
@@ -35,6 +36,12 @@ public class PlayerNetwork : NetworkBehaviour
     public void SetColorServerRpc(Color new_color)
     {
         color.Value = new_color;
+    }
+
+    [ServerRpc]
+    public void SetReadyServerRpc(bool new_status)
+    {
+        ready.Value = new_status;
     }
 
     /*

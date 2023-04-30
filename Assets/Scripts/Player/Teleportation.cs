@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.Netcode;
 using TMPro;
 
-public class Teleportation : MonoBehaviour
+public class Teleportation : NetworkBehaviour
 {
-    public GameObject shootingRangeNotice;
-
     private List<GameObject> teleportationTargets = new List<GameObject>();
     private List<Bounds> bounds = new List<Bounds>();
     private bool readyFlag = false;
@@ -15,9 +14,13 @@ public class Teleportation : MonoBehaviour
     private GameObject mainCamera = null;
     private SpeedController speedCtrl = null;
 
+    private GameObject shootingRangeNotice = null;
+
     // Start is called before the first frame update
     void Start()
     {
+        if (!IsOwner) return;
+
         // Add virtual place of all scenes for the lobby
         if ("MainLobby" == SceneManager.GetActiveScene().name)
         {
@@ -88,7 +91,7 @@ public class Teleportation : MonoBehaviour
             // assign stored position to the player in the current scene
             if ("" == fromSceneName)
             {
-                return ;
+                return;
             }
             else if ("MainLobby" == fromSceneName)
             {
@@ -114,6 +117,15 @@ public class Teleportation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!IsOwner) return;
+
+        // find the notice canvas and save it for future using
+        if (null == shootingRangeNotice)
+        {
+            shootingRangeNotice = GameObject.Find("ShootingRangeNotice");
+        }
+
+        // iterate all shooting fields to judge which field is the current player in
         bool inFlag = false;
         for (int i = 0; i < teleportationTargets.Count; ++i)
         {
@@ -126,16 +138,13 @@ public class Teleportation : MonoBehaviour
             if (bounds[i].Contains(p_point))
             {
                 inFlag = true;
-                if (null == shootingRangeNotice)
-                {
-                    shootingRangeNotice = GameObject.Find("ShootingRangeNotice");
-                }
                 shootingRangeNotice.transform.Find("Ready").gameObject.SetActive(true);
 
                 // if shooting, the player is ready
                 if (Input.GetButtonDown("js5"))
                 {
                     readyFlag = !readyFlag;
+                    GetComponent<PlayerNetwork>().SetReadyServerRpc(readyFlag);
                 }
 
                 if (readyFlag)
@@ -178,13 +187,10 @@ public class Teleportation : MonoBehaviour
         if (!inFlag)
         {
             readyFlag = false;
-
-            // close ready notice
-            if (null == shootingRangeNotice)
+            if (shootingRangeNotice.activeSelf)
             {
-                shootingRangeNotice = GameObject.Find("ShootingRangeNotice");
+                shootingRangeNotice.transform.Find("Ready").gameObject.SetActive(false);
             }
-            shootingRangeNotice.transform.Find("Ready").gameObject.SetActive(false);
         }
     }
 }
