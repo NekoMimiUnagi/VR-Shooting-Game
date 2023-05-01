@@ -13,7 +13,7 @@ public class AnimalScript : DestroyableTarget
     private float currentSpeed;
     private float currentTime;
     private float waitTime;
-
+    private int targetScore = 10;
     void Start()
     {
         SetRandomDirection();

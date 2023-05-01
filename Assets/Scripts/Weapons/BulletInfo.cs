@@ -11,11 +11,19 @@ public class BulletInfo : MonoBehaviour
     private Color playerColor = Color.white;
     private string playerName = "Player";
     private string weaponName = "Weapon";
+    private string bulletName = "Bullet";
+    private int weaponScore = 0;
+    private int weaponDamage = 0;
+    private int ammoScore = 0; 
     
     void Start()
     {   
         
         weapon = GameObject.FindWithTag("Weapon").GetComponent<ShootWeapon>();
+        weaponScore = weapon.GetWeaponScore();
+        weaponDamage = weapon.GetDamage();
+        ammoScore = weapon.GetAmmoScore();
+
         // player = GameObject.FindWithTag("Player").GetComponent<Player>();
         player = weapon.transform.parent.parent.parent.parent.GetComponent<Player>();
         // player = this.gameObject.transform.parent.parent.parent.parent.GetComponent<Player>();
@@ -56,6 +64,7 @@ public class BulletInfo : MonoBehaviour
     {
         
     }
+
     public Color GetPlayerColor(){
         return playerColor;
     }
@@ -77,6 +86,16 @@ public class BulletInfo : MonoBehaviour
 
         return "RifleBullet";
     }
+    public int GetWeaponScore(){
+        return weaponScore;
+    }
+    public int GetWeaponDamage(){
+        return weaponDamage;
+    }
+    public int GetAmmoScore(){
+        return ammoScore;
+    }
+    
 
 
 

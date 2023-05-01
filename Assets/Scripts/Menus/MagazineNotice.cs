@@ -7,10 +7,10 @@ public class MagazineNotice : MonoBehaviour
 {
     private ShootWeapon weapon;
     private float timeLeft = 300f;
+    private DestroyableTarget target;
     public TMPro.TMP_Text ammoRemain;
     public TMPro.TMP_Text damage;
-    public TMPro.TMP_Text weaponScore;
-    public TMPro.TMP_Text ammoScore;
+    public TMPro.TMP_Text TotalScore;
     public TMPro.TMP_Text time;
     // Start is called before the first frame update
     void Start()
@@ -21,8 +21,7 @@ public class MagazineNotice : MonoBehaviour
         // ammoScore = gameObject.GetComponentInChildren<TMP_Text>();
 //        text.text = "Dooooge";
         damage.text = "damage:";
-        weaponScore.text = "weapon score:";
-        ammoScore.text = "ammo score:";
+        TotalScore.text = "Total score:";
         time.text = "5:00";
     }
 
@@ -35,12 +34,13 @@ public class MagazineNotice : MonoBehaviour
             int minutes = Mathf.FloorToInt(timeLeft / 60F);
             int seconds = Mathf.FloorToInt(timeLeft - minutes * 60);
             time.text  = string.Format("{0:00}:{1:00}", minutes, seconds); 
-            if (weapon)
+            if (weapon )
             {
                 ammoRemain.text = weapon.GetRemainingAmmo();
-                damage.text = weapon.GetDamage().ToString();
-                weaponScore.text = weapon.GetWeaponScore().ToString();
-                ammoScore.text = weapon.GetAmmoScore().ToString();
+                
+                // damage.text = weapon.GetDamage().ToString();
+                // weaponScore.text = weapon.GetWeaponScore().ToString();
+                // ammoScore.text = weapon.GetAmmoScore().ToString();
             }
             else
             {
@@ -50,7 +50,16 @@ public class MagazineNotice : MonoBehaviour
                     weapon = weaponHolder.transform.GetChild(0).GetComponentInChildren<ShootWeapon>();
                 }
             }
-    }
+            if (target)
+            {   
+                if(target.GetTotalScore() >=500)
+                {
+                    // stop the game and announce the winner
+                }
+                damage.text = target.GetTotalDamage().ToString();
+                TotalScore.text= weapon.GetWeaponScore().ToString();
+            }
+        }
         else{
                 time.text = "0:00 Time's Up!";
 
