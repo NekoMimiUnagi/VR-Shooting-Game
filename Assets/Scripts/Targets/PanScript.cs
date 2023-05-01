@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PanScript : MonoBehaviour
+public class PanScript : DestroyableTarget
 {
     public float initialSpeed = 15f;
     private Vector3 velocity;

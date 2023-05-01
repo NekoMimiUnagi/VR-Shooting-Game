@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AnimalScript : MonoBehaviour
+public class AnimalScript : DestroyableTarget
 {
     public float minSpeed = 1f;
     public float maxSpeed = 3f;

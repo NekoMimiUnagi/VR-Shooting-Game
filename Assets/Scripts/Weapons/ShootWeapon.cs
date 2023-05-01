@@ -162,4 +162,21 @@ public class ShootWeapon : MonoBehaviour
         }
         return weaponScore;
     }
+
+    public string GetWeaponName()
+    {
+        if(GameObject.FindWithTag("Rifle")){
+            return "Rifle";
+        } 
+        else if(GameObject.FindWithTag("Shotgun")){
+            return "Shotgun";
+        }
+        else if(GameObject.FindWithTag("Crossbow")){
+            return "Crossbow";
+        }
+        else if(GameObject.FindWithTag("Bow")){
+            return "Bow";
+        }
+        return "Rifle";
+    }
 }
