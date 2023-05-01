@@ -19,6 +19,8 @@ public class AnimalScript : DestroyableTarget
         SetRandomDirection();
         SetRandomSpeed();
         SetRandomWaitTime();
+        SetTargetScore(targetScore);
+        SetTargetHealth(100);
     }
 
     void Update()

@@ -8,6 +8,8 @@ public class MagazineNotice : MonoBehaviour
     private ShootWeapon weapon;
     private float timeLeft = 300f;
     private DestroyableTarget target;
+    // need to create new object to store this value
+    public ScoreSystem scoreSystem;
     public TMPro.TMP_Text ammoRemain;
     public TMPro.TMP_Text damage;
     public TMPro.TMP_Text TotalScore;
@@ -50,14 +52,27 @@ public class MagazineNotice : MonoBehaviour
                     weapon = weaponHolder.transform.GetChild(0).GetComponentInChildren<ShootWeapon>();
                 }
             }
-            if (target)
-            {   
-                if(target.GetTotalScore() >=500)
-                {
-                    // stop the game and announce the winner
+            if (scoreSystem)
+            {
+                foreach(GameObject playerGO in GameObject.FindGameObjectsWithTag("Player")){
+                    string playerName = playerGO.GetComponent<Player>().GetNickName();
+                    ScoreSystem.PlayerStats playerStats = scoreSystem.GetPlayerStats(playerName);
+                    if (playerStats != null)
+                    {   
+                        Color playerColor = playerStats.color;
+                        damage.text = "damage: " + playerStats.totalDamage.ToString();
+                        TotalScore.text = "Total score: " + playerStats.totalScore.ToString();
+                    }
                 }
-                damage.text = target.GetTotalDamage().ToString();
-                TotalScore.text= weapon.GetWeaponScore().ToString();
+                
+            }
+            else
+            {
+                GameObject scoreSystemHolder = GameObject.FindWithTag("ScoreSystem");
+                if (scoreSystemHolder)
+                {
+                    scoreSystem = scoreSystemHolder.GetComponent<ScoreSystem>();
+                }
             }
         }
         else{

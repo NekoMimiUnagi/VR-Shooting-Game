@@ -64,6 +64,9 @@ public class BulletInfo : MonoBehaviour
     {
         
     }
+    public BulletInfo GetBulletInfo(GameObject bullet){
+        return this;
+    }
 
     public Color GetPlayerColor(){
         return playerColor;
@@ -95,7 +98,7 @@ public class BulletInfo : MonoBehaviour
     public int GetAmmoScore(){
         return ammoScore;
     }
-    
+
 
 
 
