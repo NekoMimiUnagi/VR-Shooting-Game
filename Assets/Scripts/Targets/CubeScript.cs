@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CubeScript : MonoBehaviour
+public class CubeScript : DestroyableTarget
 {
     private void OnCollisionEnter(Collision collision)
     {

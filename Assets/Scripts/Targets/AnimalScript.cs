@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AnimalScript : MonoBehaviour
+public class AnimalScript : DestroyableTarget
 {
     public float minSpeed = 1f;
     public float maxSpeed = 3f;
@@ -13,12 +13,14 @@ public class AnimalScript : MonoBehaviour
     private float currentSpeed;
     private float currentTime;
     private float waitTime;
-
+    private int targetScore = 10;
     void Start()
     {
         SetRandomDirection();
         SetRandomSpeed();
         SetRandomWaitTime();
+        SetTargetScore(targetScore);
+        SetTargetHealth(100);
     }
 
     void Update()
