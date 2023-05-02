@@ -18,20 +18,21 @@ public class BulletInfo : MonoBehaviour
     
     void Start()
     {   
-        
-        weapon = GameObject.FindWithTag("Weapon").GetComponent<ShootWeapon>();
+        //1.  weapon does not have a Script, so FindWidhTag("Weapon").GetComponent<ShootWeapon>() will return null
+        //2. Player Script is not attached to Plater gameObject, so FindWidhTag("Player").GetComponent<Player>() will return null
+        weapon = GameObject.FindWithTag("Rifle").GetComponent<ShootWeapon>();
         weaponScore = weapon.GetWeaponScore();
         weaponDamage = weapon.GetDamage();
         ammoScore = weapon.GetAmmoScore();
-
-        // player = GameObject.FindWithTag("Player").GetComponent<Player>();
-        player = weapon.transform.parent.parent.parent.parent.GetComponent<Player>();
+        player = GameObject.Find("Player").GetComponent<Player>();
+        // player = weapon.transform.parent.parent.parent.parent.parent.GetComponent<Player>();
         // player = this.gameObject.transform.parent.parent.parent.parent.GetComponent<Player>();
         // weapon = this.gameObject.transform.parent.parent.parent.GetComponent<ShootWeapon>();
         // player = bullet.Find("Player").GetComponent<Player>();
         // weapon = bullet.transform.parent.parent.parent.GetComponent<ShootWeapon>();
         if(player != null)
         {
+            Debug.Log("Player not null");
             if( player.GetColor() != null){
                 Debug.Log("playerColor not null");
                 playerColor = player.GetColor();
@@ -41,6 +42,7 @@ public class BulletInfo : MonoBehaviour
                 Debug.Log("playerName not null");
                 playerName = player.GetNickName();
             }
+            
         }
         // Debug.Log(weapon.GetWeaponName());
         if (weapon != null)

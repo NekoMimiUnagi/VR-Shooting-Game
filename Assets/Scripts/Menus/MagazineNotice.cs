@@ -60,6 +60,9 @@ public class MagazineNotice : MonoBehaviour
                     if (playerStats != null)
                     {   
                         Color playerColor = playerStats.color;
+                        int currentTotalScore = playerStats.totalScore;
+                        int currentTotalDamage = playerStats.totalDamage;
+                      
                         damage.text = "damage: " + playerStats.totalDamage.ToString();
                         TotalScore.text = "Total score: " + playerStats.totalScore.ToString();
                     }

@@ -7,8 +7,6 @@ public class ScoreSystem : MonoBehaviour
     [SerializeField] private List<Player> playersList = new List<Player>();
     [SerializeField] private List<DestroyableTarget> destroyedTargetsList = new List<DestroyableTarget>();
     [SerializeField] private Dictionary<string, PlayerStats> playerStatsDict = new Dictionary<string, PlayerStats>();
-    private int totalScore = 0;
-    private int totalDamage = 0;
     private string playerName = "";
     // Start is called before the first frame update
     void Start()
@@ -32,13 +30,7 @@ public class ScoreSystem : MonoBehaviour
             }
           
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-        // Loop through all the players in the game and target, to check if they have identical names
         foreach (Player player in playersList)
         {
             // Update the player's score and damage
@@ -58,6 +50,14 @@ public class ScoreSystem : MonoBehaviour
                 }
             }
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        // Loop through all the players in the game and target, to check if they have identical names
+        
     }
 
     public PlayerStats GetPlayerStats(string playerName)

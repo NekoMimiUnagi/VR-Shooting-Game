@@ -21,6 +21,7 @@ public class DestroyableTarget : MonoBehaviour
         {   HitBullet = collision.gameObject;
             Destroy(collision.gameObject);
             // if health 0 and destroyed
+
             isDestroyed = true;
             Destroy(this.gameObject);
         }
