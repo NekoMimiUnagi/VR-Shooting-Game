@@ -9,7 +9,7 @@ public class MagazineNotice : MonoBehaviour
     private float timeLeft = 300f;
     private DestroyableTarget target;
     // need to create new object to store this value
-    public ScoreSystem scoreSystem;
+    private GameObject scoreSystem;
     public TMPro.TMP_Text ammoRemain;
     public TMPro.TMP_Text damage;
     public TMPro.TMP_Text TotalScore;
@@ -22,7 +22,8 @@ public class MagazineNotice : MonoBehaviour
         // weaponScore = gameObject.GetComponentInChildren<TMP_Text>();
         // ammoScore = gameObject.GetComponentInChildren<TMP_Text>();
 //        text.text = "Dooooge";
-        damage.text = "damage:";
+        scoreSystem = GameObject.FindWithTag("ScoreSystem");
+        damage.text = "Total damage:";
         TotalScore.text = "Total score:";
         time.text = "5:00";
     }
@@ -36,7 +37,7 @@ public class MagazineNotice : MonoBehaviour
             int minutes = Mathf.FloorToInt(timeLeft / 60F);
             int seconds = Mathf.FloorToInt(timeLeft - minutes * 60);
             time.text  = string.Format("{0:00}:{1:00}", minutes, seconds); 
-            if (weapon )
+            if (weapon)
             {
                 ammoRemain.text = weapon.GetRemainingAmmo();
                 
@@ -52,30 +53,36 @@ public class MagazineNotice : MonoBehaviour
                     weapon = weaponHolder.transform.GetChild(0).GetComponentInChildren<ShootWeapon>();
                 }
             }
+            // need to attach score system to the player
             if (scoreSystem)
             {
-                foreach(GameObject playerGO in GameObject.FindGameObjectsWithTag("Player")){
-                    string playerName = playerGO.GetComponent<Player>().GetNickName();
-                    ScoreSystem.PlayerStats playerStats = scoreSystem.GetPlayerStats(playerName);
-                    if (playerStats != null)
-                    {   
-                        Color playerColor = playerStats.color;
-                        int currentTotalScore = playerStats.totalScore;
-                        int currentTotalDamage = playerStats.totalDamage;
-                      
-                        damage.text = "damage: " + playerStats.totalDamage.ToString();
-                        TotalScore.text = "Total score: " + playerStats.totalScore.ToString();
-                    }
+                Debug.Log("ScoreSystem found");
+                ScoreSystem.PlayerStats playerStats = scoreSystem.GetComponent<ScoreSystem>().GetPlayerStats(0);
+                if (playerStats != null)
+                {   
+                    Color playerColor = playerStats.color;
+                    int currentTotalScore = playerStats.totalScore;
+                    int currentTotalDamage = playerStats.totalDamage;
+                    damage.text = "Total damage: " + playerStats.totalDamage.ToString();
+                    TotalScore.text = "Total score: " + playerStats.totalScore.ToString();
                 }
+                // foreach(GameObject playerGO in GameObject.FindGameObjectsWithTag("Player")){
+                //     int playerID = playerGO.GetComponent<Player>().GetPlayerID();
+                //     ScoreSystem.PlayerStats playerStats = scoreSystem.GetComponent<ScoreSystem>().GetPlayerStats(playerID);
+                //     if (playerStats != null)
+                //     {   
+                //         Color playerColor = playerStats.color;
+                //         int currentTotalScore = playerStats.totalScore;
+                //         int currentTotalDamage = playerStats.totalDamage;
+                      
+                //         damage.text = "damage: " + playerStats.totalDamage.ToString();
+                //         TotalScore.text = "Total score: " + playerStats.totalScore.ToString();
+                //     }
+                // }
                 
             }
-            else
-            {
-                GameObject scoreSystemHolder = GameObject.FindWithTag("ScoreSystem");
-                if (scoreSystemHolder)
-                {
-                    scoreSystem = scoreSystemHolder.GetComponent<ScoreSystem>();
-                }
+            else{
+                Debug.Log("ScoreSystem not found");
             }
         }
         else{

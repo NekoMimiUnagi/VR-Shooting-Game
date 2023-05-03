@@ -15,6 +15,7 @@ TagManager:
   - Shotgun
   - Bow
   - ScoreSystem
+  - Win
   layers:
   - Default
   - TransparentFX
