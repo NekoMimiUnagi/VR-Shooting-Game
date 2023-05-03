@@ -18,18 +18,21 @@ public class BulletInfo : MonoBehaviour
     
     void Start()
     {   
-        //1.  weapon does not have a Script, so FindWidhTag("Weapon").GetComponent<ShootWeapon>() will return null
-        //2. Player Script is not attached to Plater gameObject, so FindWidhTag("Player").GetComponent<Player>() will return null
-        weapon = GameObject.FindWithTag("Rifle").GetComponent<ShootWeapon>();
+        
+        ///-------------------------------------------------------------------------------------//
+        // edit this part for multiplayer
+        //  foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player"))
+        //     {
+        //     player = go;
+
+        //     }
+        ///-------------------------------------------------------------------------------------//
+        weapon = GameObject.FindWithTag("Weapon").transform.GetChild(0).GetComponent<ShootWeapon>();
         weaponScore = weapon.GetWeaponScore();
         weaponDamage = weapon.GetDamage();
         ammoScore = weapon.GetAmmoScore();
+
         player = GameObject.Find("Player").GetComponent<Player>();
-        // player = weapon.transform.parent.parent.parent.parent.parent.GetComponent<Player>();
-        // player = this.gameObject.transform.parent.parent.parent.parent.GetComponent<Player>();
-        // weapon = this.gameObject.transform.parent.parent.parent.GetComponent<ShootWeapon>();
-        // player = bullet.Find("Player").GetComponent<Player>();
-        // weapon = bullet.transform.parent.parent.parent.GetComponent<ShootWeapon>();
         if(player != null)
         {
             Debug.Log("Player not null");
@@ -44,21 +47,14 @@ public class BulletInfo : MonoBehaviour
             }
             
         }
-        // Debug.Log(weapon.GetWeaponName());
+
         if (weapon != null)
         {
-            Debug.Log("weapon not null");
             if (weapon.GetWeaponName() != null)
             {   Debug.Log("weaponName not null");
                 weaponName = weapon.GetWeaponName();
             }
         }
-        
-        
-        // Debug.Log(playerColor);
-        // Debug.Log(playerName);
-        // Debug.Log(weaponName);
-
     }
 
     // Update is called once per frame
@@ -73,12 +69,15 @@ public class BulletInfo : MonoBehaviour
     public Color GetPlayerColor(){
         return playerColor;
     }
+    
     public string GetPlayerName(){
         return playerName;
     }
+
     public string GetWeaponName(){
         return weaponName;
     }
+
     public string GetBulletName(){
         if (weaponName == "Rifle")
             return "RifleBullet";
