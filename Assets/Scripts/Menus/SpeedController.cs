@@ -7,7 +7,7 @@ public class SpeedController : MonoBehaviour
     public static SpeedController instance { get; private set; }
 
     private CharacterMovement charaMove = null;
-    private float speed = 0;
+    private float speed = 5;
     private bool speedLock = false;
 
     void Awake()

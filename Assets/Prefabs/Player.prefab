@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -7166537668038239588}
   - component: {fileID: 880376095}
   - component: {fileID: 880376094}
+  - component: {fileID: 6138786684436180137}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -99,7 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d7fbc7f20820f54cbd981016502fd9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootingRangeNotice: {fileID: 0}
 --- !u!114 &-3443527479377555451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,3 +204,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6138786684436180137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4758160170890112641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd567dc226ce0854582bcb9a0005027d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

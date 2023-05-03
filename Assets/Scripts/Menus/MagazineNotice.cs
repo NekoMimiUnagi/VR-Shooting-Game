@@ -13,12 +13,17 @@ public class MagazineNotice : MonoBehaviour
     void Start()
     {
         text = gameObject.GetComponentInChildren<TMP_Text>();
-//        text.text = "Dooooge";
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Load camera for non-lobby scenes
+        if (GetComponent<Canvas>().worldCamera is null)
+        {
+            GetComponent<Canvas>().worldCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        }
+
         if (weapon)
         {
             text.text = weapon.GetRemainingAmmo();

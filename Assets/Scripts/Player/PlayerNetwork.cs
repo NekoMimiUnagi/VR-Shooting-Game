@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class PlayerNetwork : NetworkBehaviour
 {
     private NetworkVariable<Color> color = new NetworkVariable<Color>(Color.white);
-    private NetworkVariable<bool> ready = new NetworkVariable<bool>(false);
+    
+    private Dictionary<ulong, ReadyStatus> ready = new Dictionary<ulong, ReadyStatus>(); // for server
 
     public override void OnNetworkSpawn()
     {
@@ -24,11 +25,12 @@ public class PlayerNetwork : NetworkBehaviour
 
             // set initial position in the lobby
             transform.position = new Vector3(Random.Range(0, 2), 1, Random.Range(-2, 2));
+
         }
 
         color.OnValueChanged += (Color previousValue, Color newValue) =>
         {
-            gameObject.GetComponent<Renderer>().material.color = color.Value;
+            GetComponent<Renderer>().material.color = color.Value;
         };
     }
 
@@ -39,9 +41,55 @@ public class PlayerNetwork : NetworkBehaviour
     }
 
     [ServerRpc]
-    public void SetReadyServerRpc(bool new_status)
+    public void SetReadyServerRpc(ReadyStatus rs, ServerRpcParams rpcParams = default)
     {
-        ready.Value = new_status;
+        SetReady(rpcParams.Receive.SenderClientId, rs);
+        /*
+        Debug.Log(OwnerClientId + "?" + rpcParams.Receive.SenderClientId + ": " + rs.sceneID + " --- " + rs.flag);
+        ready[rpcParams.Receive.SenderClientId] = rs;
+        foreach (KeyValuePair<ulong, ReadyStatus> entry in ready)
+        {
+            Debug.Log(OwnerClientId + "?" + entry.Key + ": " + entry.Value.sceneID + " -- " + entry.Value.flag);
+        }
+        */
+    }
+
+    private void SetReady(ulong clientID, ReadyStatus rs)
+    {
+        Debug.Log(OwnerClientId + " -- " + clientID + " -- " + rs.sceneID + " -- " + rs.flag);
+        ready[clientID] = rs;
+        foreach (KeyValuePair<ulong, ReadyStatus> entry in ready)
+        {
+            Debug.Log(OwnerClientId + "?" + entry.Key + ": " + entry.Value.sceneID + " -- " + entry.Value.flag);
+        }
+    }
+
+    public bool AllReady()
+    {
+        /*
+        foreach (KeyValuePair<ulong, ReadyStatus> entry in ready)
+        {
+            Debug.Log(entry.Key + ": " + entry.Value.sceneID + " -- " + entry.Value.flag);
+        }
+        */
+
+        int flag = 0;
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            ulong clientID = go.GetComponent<PlayerNetwork>().OwnerClientId;
+            if (!ready.ContainsKey(clientID))
+            {
+                return false;
+            }
+            else
+            {
+                if (ready[clientID].flag)
+                {
+                    flag += (1 << ready[clientID].sceneID);
+                }
+            }
+        }
+        return (flag == 1) || (flag == 2) || (flag == 4); // 001 || 010 || 100
     }
 
     /*

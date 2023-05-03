@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player
+public class Player : MonoBehaviour
 {
     private Color color;
     private Vector3 relativePosition;
     private Quaternion faceTo;
     private string fromSceneName = "";
+    private bool gameStarted = false;
 
     public Player()
     {
@@ -36,6 +37,11 @@ public class Player
         fromSceneName = newFromSceneName;
     }
 
+    public void StartGame()
+    {
+        gameStarted = true;
+    }
+
     public Color GetColor()
     {
         return color;
@@ -49,5 +55,10 @@ public class Player
     public string GetFromSceneName()
     {
         return fromSceneName;
+    }
+
+    public bool GameStarted()
+    {
+        return gameStarted;
     }
 }

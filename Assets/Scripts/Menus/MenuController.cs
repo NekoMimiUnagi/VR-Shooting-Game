@@ -24,8 +24,13 @@ public class MenuController : MonoBehaviour
         reticleActivator = GameObject.Find("ReticleActivator").GetComponent<ReticleActivator>();
 
         // Show main menu when game starts
-        PlayerData playerData = GameObject.Find("PlayerData").GetComponent<PlayerData>();
-        if ("MainMenu" == gameObject.name && !playerData.GameStarted())
+        GameObject player = GameObject.FindWithTag("Player");
+        Player playerData = null;
+        if (null != player)
+        {
+            playerData = GameObject.FindWithTag("Player").GetComponent<Player>();
+        }
+        if ("MainMenu" == gameObject.name && (null == player || !playerData.GameStarted()))
         {
             originMenuName = gameObject.name;
             reticleActivator.Hide();
