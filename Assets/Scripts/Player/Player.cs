@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private string nickName;
     private Color color;
     private Vector3 relativePosition;
     private Quaternion faceTo;
@@ -13,27 +12,20 @@ public class Player : MonoBehaviour
     private bool speedLock = false;
     private int ID;
     private int numPlayer = 0;
+    private bool gameStarted = false;
 
-    public Player(string newNickName)
+    public Player()
     {
         nickName = newNickName;
-     
     }
+
     public Player(Color newColor)
     {
         color = newColor;
         ID = numPlayer;
         numPlayer++;
-   
     }
 
-    public Player(string newNickName, Color newColor)
-    {
-        nickName = newNickName;
-        color = newColor;
-    }
-
-    
     public void UpdateNickName(string newNickName)
     {
         nickName = newNickName;
@@ -56,19 +48,9 @@ public class Player : MonoBehaviour
         fromSceneName = newFromSceneName;
     }
 
-    public void UpdateSpeed(float newSpeed)
+    public void StartGame()
     {
-        speed = newSpeed;
-    }
-
-    public void UpdateSpeedLock(bool lockStatus)
-    {
-        speedLock = lockStatus;
-    }
-
-    public string GetNickName()
-    {
-        return nickName;
+        gameStarted = true;
     }
 
     public int GetPlayerID()
@@ -90,13 +72,8 @@ public class Player : MonoBehaviour
         return fromSceneName;
     }
 
-    public float GetSpeed()
+    public bool GameStarted()
     {
-        return speed;
-    }
-
-    public bool GetSpeedLock()
-    {
-        return speedLock;
+        return gameStarted;
     }
 }

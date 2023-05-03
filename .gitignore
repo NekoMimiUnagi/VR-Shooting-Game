@@ -3,4 +3,6 @@ Temp/
 obj/
 Logs/
 *BackUpThisFolder*/
+*DoNotShip*/
 *.mp4
+Build/

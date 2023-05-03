@@ -31,6 +31,12 @@ public class MagazineNotice : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
+        // Load camera for non-lobby scenes
+        if (GetComponent<Canvas>().worldCamera is null)
+        {
+            GetComponent<Canvas>().worldCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        }
+
         if(timeLeft>0)
         {
             timeLeft -= Time.deltaTime;

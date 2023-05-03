@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-public class MenuStart : MonoBehaviour
+public class MenuJoin : MonoBehaviour
 {
-    public void StartGame()
+    public void JoinGame()
     {
-        NetworkManager.Singleton.StartHost();
+        NetworkManager.Singleton.StartClient();
         gameObject.transform.parent.GetComponent<MenuController>().Hide();
     }
 }

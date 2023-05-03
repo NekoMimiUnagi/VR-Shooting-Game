@@ -29,6 +29,12 @@ public class MenuSpeed : MonoBehaviour
     {
         toggle = (toggle + 1) % speeds.Count;
         gameObject.GetComponentInChildren<TMP_Text>().text = modes[toggle];
-        speedCtrl.SetSpeed("Player", speeds[toggle]); // TODO: find the name of current player
+        speedCtrl.SetSpeed(speeds[toggle]);
+    }
+
+    // Prepared for settings at main menu before seleting single mode or multiplayer mode
+    public int GetSettingsSpeed()
+    {
+        return speeds[toggle];
     }
 }
