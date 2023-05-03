@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ColorPanel : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class ColorPanel : MonoBehaviour
     private ReticleActivator reticleActivator;
     private string originMenuName = "";
 
-    private GameObject player;
+    private GameObject player = null;
     private RawImage colorDisplayer;
     private GameObject notice;
 
@@ -21,7 +22,7 @@ public class ColorPanel : MonoBehaviour
     private List<Color> colors = new List<Color> { Color.blue, Color.black, Color.cyan, Color.green,
                                                    Color.magenta, Color.red, Color.white, Color.yellow };
     private int selectedColorIndex = 0;
-    private Dictionary<Color, string> colorUsage = new Dictionary<Color, string>();
+    //private Dictionary<Color, string> colorUsage = new Dictionary<Color, string>();
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +31,6 @@ public class ColorPanel : MonoBehaviour
         speedCtrl = GameObject.Find("SpeedController").GetComponent<SpeedController>();
         reticleActivator = GameObject.Find("ReticleActivator").GetComponent<ReticleActivator>();
 
-        player = GameObject.Find("Player");
         colorDisplayer = transform.Find("Color").GetComponent<RawImage>();
         colorDisplayer.color = colors[selectedColorIndex];
         notice = gameObject.transform.Find("Notice").gameObject;
@@ -44,6 +44,21 @@ public class ColorPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // find the right player and store it
+        if (null == player)
+        {
+            notice.GetComponentInChildren<TMP_Text>().text = "No player spawn. Press X to exit the panel";
+            foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                if (go.GetComponent<PlayerNetwork>().IsOwner)
+                {
+                    player = go;
+                    notice.GetComponentInChildren<TMP_Text>().text = "Press X to apply the color";
+                    break;
+                }
+            }
+        }
+
         float trend = Input.GetAxisRaw("Horizontal");
         if (-0.2f <= trend && trend <= 0.2f)
         {
@@ -56,14 +71,22 @@ public class ColorPanel : MonoBehaviour
             {
                 if (trend > 0.2)
                 {
-                    selectedColorIndex = (selectedColorIndex + 1) % colors.Count;
                     waitFlag = true;
+                    selectedColorIndex = (selectedColorIndex + 1) % colors.Count;
+                    if (null != player)
+                    {
+                        player.GetComponent<PlayerNetwork>().SetColorServerRpc(colors[selectedColorIndex]);
+                    }
                     colorDisplayer.color = colors[selectedColorIndex];
                 }
                 else if (trend < -0.2)
                 {
-                    selectedColorIndex = (selectedColorIndex - 1 + colors.Count) % colors.Count;
                     waitFlag = true;
+                    selectedColorIndex = (selectedColorIndex - 1 + colors.Count) % colors.Count;
+                    if (null != player)
+                    {
+                        player.GetComponent<PlayerNetwork>().SetColorServerRpc(colors[selectedColorIndex]);
+                    }
                     colorDisplayer.color = colors[selectedColorIndex];
                 }
             }
@@ -78,6 +101,12 @@ public class ColorPanel : MonoBehaviour
                 }
             }
         }
+    }
+
+    // Prepared for settings at main menu before seleting single mode or multiplayer mode
+    public Color GetSettingsColor()
+    {
+        return colors[selectedColorIndex];
     }
 
     public void Show(string name = "")

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Table : MonoBehaviour
 {
@@ -18,14 +19,15 @@ public class Table : MonoBehaviour
     {
         if (Input.GetButtonDown("js5") && flag)
         {
-            /*
-            if (null == inventoryPanel)
-            {
-                inventoryPanel = GameObject.Find("InventoryPanel");
-            }
-            */
             GameObject inventoryPanel = inventory.GetPanel();
-            inventoryPanel.GetComponent<InventoryPanel>().Show();
+            if("MainLobby" != SceneManager.GetActiveScene().name)
+            {
+                inventoryPanel.GetComponent<InventoryPanel>().Show();
+            }
+            else
+            {
+                inventoryPanel.GetComponent<InventoryPanelMainLobby>().Show();
+            }
         }
     }
 
