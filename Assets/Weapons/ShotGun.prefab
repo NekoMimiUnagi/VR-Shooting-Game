@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2509565679317074185}
   m_Layer: 0
   m_Name: ShotGun
-  m_TagString: Untagged
+  m_TagString: Shotgun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,13 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25cf7aac6bc0bca4fb81b445eca5d880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 3064823930884900770, guid: 53e1b16218860a14caa1e9001f8834c5, type: 3}
+  projectile: {fileID: 1183026924335704002, guid: dbe10c1f753cae24c922defa6e68f304, type: 3}
   speed: 50
   magazineSize: 6
   reloadTime: 1
   shootDelay: 0.1
-  currentMagazineSize: 0
-  text: {fileID: 2682260153988129521}
 --- !u!1 &4228159525081187207
 GameObject:
   m_ObjectHideFlags: 0

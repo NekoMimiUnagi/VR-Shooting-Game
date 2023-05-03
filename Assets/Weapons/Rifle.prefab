@@ -146,13 +146,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25cf7aac6bc0bca4fb81b445eca5d880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 3064823930884900770, guid: 53e1b16218860a14caa1e9001f8834c5, type: 3}
+  projectile: {fileID: 2213547672961814134, guid: ca6ea9baa3b63484191647981dd62e10, type: 3}
   speed: 100
   magazineSize: 30
   reloadTime: 0.1
   shootDelay: 0.2
-  currentMagazineSize: 0
-  text: {fileID: 2302013286918275187}
 --- !u!1 &5147414811710024205
 GameObject:
   m_ObjectHideFlags: 0

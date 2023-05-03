@@ -11,6 +11,10 @@ TagManager:
   - Bullet
   - Weapon
   - Menu
+  - Crossbow
+  - Shotgun
+  - Bow
+  - ScoreSystem
   layers:
   - Default
   - TransparentFX

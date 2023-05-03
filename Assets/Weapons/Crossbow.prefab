@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 2074470515874967847}
   m_Layer: 0
   m_Name: Crossbow
-  m_TagString: Untagged
+  m_TagString: Crossbow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,13 +146,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25cf7aac6bc0bca4fb81b445eca5d880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 3064823930884900770, guid: 53e1b16218860a14caa1e9001f8834c5, type: 3}
+  projectile: {fileID: 8895928587830058604, guid: 2bdcf3f0f8d677d4f80abf1f365fe14c, type: 3}
   speed: 10
   magazineSize: 1
   reloadTime: 3
   shootDelay: 0.1
-  currentMagazineSize: 0
-  text: {fileID: 1955536573121352415}
 --- !u!1 &4881436608636647585
 GameObject:
   m_ObjectHideFlags: 0
