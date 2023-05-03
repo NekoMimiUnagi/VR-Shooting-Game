@@ -17,8 +17,8 @@ public class Teleportation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Add virtual place of all scenes for lobby
-        if ("Lobby" == SceneManager.GetActiveScene().name)
+        // Add virtual place of all scenes for the lobby
+        if ("MainLobby" == SceneManager.GetActiveScene().name)
         {
             for (int i = 1; i <= 3; ++i)
             {
@@ -36,25 +36,75 @@ public class Teleportation : MonoBehaviour
             bounds.Add(lobby.GetComponent<Collider>().bounds);
         }
 
-        // restore position and facing direction after teleportation
         playerData = GameObject.Find("PlayerData").GetComponent<PlayerData>();
+        GameObject mainMenu = GameObject.Find("MainMenu");
+
+        // restore speed after teleportation
+        if (playerData.Exists(gameObject.name) && (null == mainMenu || !mainMenu.activeSelf))
+        {
+            CharacterMovement charaMove = GameObject.Find(gameObject.name).GetComponent<CharacterMovement>();
+            charaMove.speed = playerData.GetSpeed(gameObject.name);
+        }
+
+        // restore position and facing direction after teleportation
         mainCamera = GameObject.FindWithTag("MainCamera");
         if (playerData.Exists(gameObject.name))
         {
-            (Vector3 vector, Quaternion rotation) = playerData.GetRelativeTransform(gameObject.name);
             string fromSceneName = playerData.GetFromSceneName(gameObject.name);
-            if ("Lobby" == fromSceneName)
+            (Vector3 vector, Quaternion rotation) = playerData.GetRelativeTransform(gameObject.name);
+
+            float y = 0f;
+            // rotate relative position vector based on scenes
+            if ("Scene1" == SceneManager.GetActiveScene().name)
+            {
+                ;
+            }
+            else if ("Scene2" == SceneManager.GetActiveScene().name)
+            {
+                vector = Quaternion.AngleAxis(90, Vector3.up) * vector;
+                y = 2.1f; // test result in the scene2
+            }
+            else if ("Scene2" == SceneManager.GetActiveScene().name)
+            {
+                ;
+            }
+            else if ("MainLobby" == SceneManager.GetActiveScene().name)
+            {
+                if ("Scene1" == fromSceneName)
+                {
+                    ;
+                }
+                else if ("Scene2" == fromSceneName)
+                {
+                    vector = Quaternion.AngleAxis(-90, Vector3.up) * vector;
+                }
+                else if ("Scene3" == fromSceneName)
+                {
+                    ;
+                }
+            }
+            // assign stored position to the player in the current scene
+            if ("" == fromSceneName)
+            {
+                return ;
+            }
+            else if ("MainLobby" == fromSceneName)
             {
                 // teleport to shooting range
                 GameObject shootingRange = GameObject.Find("ShootingRange");
                 Bounds shootingRangeBound = shootingRange.GetComponent<Collider>().bounds;
                 transform.position = shootingRangeBound.center + vector;
+                transform.position = new Vector3(transform.position.x,
+                                                 y,
+                                                 transform.position.z);
             }
             else
             {
                 int index = int.Parse(fromSceneName.Substring(fromSceneName.Length - 1, 1));
                 transform.position = bounds[index-1].center + vector;
             }
+
+            // assign stored rotation to the player in the current scene
             mainCamera.transform.rotation = rotation;
         }
     }
@@ -81,7 +131,7 @@ public class Teleportation : MonoBehaviour
                 shootingRangeNotice.transform.Find("Ready").gameObject.SetActive(true);
 
                 // if shooting, the player is ready
-                if (Input.GetButtonDown("js7"))
+                if (Input.GetButtonDown("js5"))
                 {
                     readyFlag = !readyFlag;
                 }
@@ -89,34 +139,34 @@ public class Teleportation : MonoBehaviour
                 if (readyFlag)
                 {
                     // pop text to mention player to push shoot button to cancel ready status
-                    if ("Lobby" == SceneManager.GetActiveScene().name)
+                    if ("MainLobby" == SceneManager.GetActiveScene().name)
                     {
-                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press OK to cancel ready";
+                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press B to cancel ready";
                     }
 
                     // teleport to corresponding space
                     Vector3 positionToCenter = p_point - bounds[i].center;
                     playerData.UpdateRelativeTransform(gameObject.name, positionToCenter, mainCamera.transform.rotation);
                     playerData.UpdateFromSceneName(gameObject.name, SceneManager.GetActiveScene().name);
-                    if ("Lobby" == SceneManager.GetActiveScene().name)
+                    if ("MainLobby" == SceneManager.GetActiveScene().name)
                     {
                         SceneManager.LoadScene($"Scene{i+1}", LoadSceneMode.Single);
                     }
                     else
                     {
-                        SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+                        SceneManager.LoadScene("MainLobby", LoadSceneMode.Single);
                     }
                 }
                 else
                 {
                     // pop text to mention player to push shoot button to active ready status
-                    if ("Lobby" == SceneManager.GetActiveScene().name)
+                    if ("MainLobby" == SceneManager.GetActiveScene().name)
                     {
-                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press OK to get ready";
+                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press B to get ready";
                     }
                     else
                     {
-                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press OK to go lobby";
+                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press B to go lobby";
                     }
                 }
             }

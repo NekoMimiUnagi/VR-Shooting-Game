@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class InventoryPanel : MonoBehaviour
 {
-    public static InventoryPanel instance { get; private set; }
-
     private List<RawImage> images;
     private Inventory inventory;
     private int rowLength = 3;
@@ -19,19 +17,6 @@ public class InventoryPanel : MonoBehaviour
     private SpeedController speedCtrl;
     private ReticleActivator reticleActivator;
 
-    void Awake()
-    {
-        if (null != instance)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
-    }
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -70,6 +55,12 @@ public class InventoryPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Load camera for non-lobby scenes
+        if (GetComponent<Canvas>().worldCamera is null)
+        {
+            GetComponent<Canvas>().worldCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        }
+
         float trendV = Input.GetAxisRaw("Vertical");
         float trendH = Input.GetAxisRaw("Horizontal");
         if (-0.2f <= trendV && trendV <= 0.2f &&
@@ -129,7 +120,7 @@ public class InventoryPanel : MonoBehaviour
         {
             int selected = selectedV * rowLength + selectedH;
             GameObject go = inventory.Get(selected);
-            if (null != go && "Lobby" != SceneManager.GetActiveScene().name)
+            if (null != go && "MainLobby" != SceneManager.GetActiveScene().name)
             {
                 // find weapon placeholder's transform
                 Transform weaponTransform = GameObject.FindWithTag("Weapon").transform;
@@ -143,6 +134,7 @@ public class InventoryPanel : MonoBehaviour
                                                 weaponTransform.position,
                                                 weaponTransform.rotation,
                                                 weaponTransform);
+                weapon.tag = go.tag;
                 weapon.SetActive(true);
 
                 // close the panel

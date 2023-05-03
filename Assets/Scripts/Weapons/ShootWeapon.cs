@@ -14,6 +14,7 @@ public class ShootWeapon : MonoBehaviour
     private int currentMagazineSize;
     private bool isReloading = false;
     private bool canShoot = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +28,7 @@ public class ShootWeapon : MonoBehaviour
             return;
         }
 
-        if(Input.GetButton("js1") && currentMagazineSize>0 && GameObject.FindWithTag("Rifle")==true && canShoot)
+        if(Input.GetButton("js0") && currentMagazineSize>0 && GameObject.FindWithTag("Rifle")==true && canShoot)
         {
             canShoot = false;
             shot();
@@ -35,14 +36,14 @@ public class ShootWeapon : MonoBehaviour
             Debug.Log(currentMagazineSize);
             StartCoroutine(ShootDelay());
         }
-        else if(Input.GetButtonDown("js1") && currentMagazineSize > 0 && GameObject.FindWithTag("Rifle")==false){
+        else if(Input.GetButtonDown("js0") && currentMagazineSize > 0 && GameObject.FindWithTag("Rifle")==false){
             
             shot();
             currentMagazineSize--;
             Debug.Log("Shot");
             Debug.Log(currentMagazineSize);
         }
-        else if (Input.GetButtonDown("js1") && currentMagazineSize == 0){
+        else if (Input.GetButtonDown("js0") && currentMagazineSize == 0){
             Debug.Log("Out of Ammo");
             StartCoroutine(Reload());
         }
@@ -92,5 +93,10 @@ public class ShootWeapon : MonoBehaviour
         }
         Debug.Log("Hit");
         Destroy(gameObject);
+    }
+
+    public string GetRemainingAmmo()
+    {
+        return currentMagazineSize.ToString() + "/" + magazineSize.ToString();
     }
 }

@@ -7,9 +7,9 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory instance { get; private set; }
 
-    public GameObject inventoryPanel;
-
+    private GameObject inventoryPanel;
     private List<GameObject> inventory = new List<GameObject>();
+    private string previousSceneName = "";
 
     void Awake()
     {
@@ -22,11 +22,7 @@ public class Inventory : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this);
         }
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
         // load all buttons in the panel
         foreach (Transform child in gameObject.transform)
         {
@@ -40,7 +36,20 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (previousSceneName != SceneManager.GetActiveScene().name)
+        {
+            GameObject[] gameObjects;
+            gameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+            foreach (GameObject go in gameObjects)
+            {
+                if ("InventoryPanel" == go.name)
+                {
+                    inventoryPanel = go;
+                    break;
+                }
+            }
+            previousSceneName = SceneManager.GetActiveScene().name;
+        }
     }
 
     public GameObject Get(int index)
