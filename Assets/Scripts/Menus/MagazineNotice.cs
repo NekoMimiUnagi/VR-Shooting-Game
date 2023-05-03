@@ -12,7 +12,7 @@ public class MagazineNotice : MonoBehaviour
     private GameObject scoreSystem;
     public TMPro.TMP_Text ammoRemain;
     public TMPro.TMP_Text damage;
-    public TMPro.TMP_Text TotalScore;
+    public TMPro.TMP_Text totalScore;
     public TMPro.TMP_Text time;
     // Start is called before the first frame update
     void Start()
@@ -24,7 +24,7 @@ public class MagazineNotice : MonoBehaviour
 //        text.text = "Dooooge";
         scoreSystem = GameObject.FindWithTag("ScoreSystem");
         damage.text = "Total damage:";
-        TotalScore.text = "Total score:";
+        totalScore.text = "Total score:";
         time.text = "5:00";
     }
 
@@ -63,14 +63,29 @@ public class MagazineNotice : MonoBehaviour
             if (scoreSystem)
             {
                 Debug.Log("ScoreSystem found");
-                ScoreSystem.PlayerStats playerStats = scoreSystem.GetComponent<ScoreSystem>().GetPlayerStats(0);
+
+                int playerID = 0;
+                foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player"))
+                {
+                    if (go.GetComponent<PlayerNetwork>().IsOwner)
+                    {
+                        playerID = (int)go.GetComponent<PlayerNetwork>().OwnerClientId;
+                        break;
+                    }
+                }
+
+                ScoreSystem.PlayerStats playerStats = scoreSystem.GetComponent<ScoreSystem>().GetPlayerStats(playerID);
                 if (playerStats != null)
                 {   
                     Color playerColor = playerStats.color;
+                    Debug.Log(playerID + " panelcolor:" + playerColor);
+                    totalScore.color = playerColor;
+                    damage.color = playerColor;
+
                     int currentTotalScore = playerStats.totalScore;
                     int currentTotalDamage = playerStats.totalDamage;
                     damage.text = "Total damage: " + playerStats.totalDamage.ToString();
-                    TotalScore.text = "Total score: " + playerStats.totalScore.ToString();
+                    totalScore.text = "Total score: " + playerStats.totalScore.ToString();
                 }
                 // foreach(GameObject playerGO in GameObject.FindGameObjectsWithTag("Player")){
                 //     int playerID = playerGO.GetComponent<Player>().GetPlayerID();
@@ -87,14 +102,14 @@ public class MagazineNotice : MonoBehaviour
                 // }
                 
             }
-            else{
+            else
+            {
                 Debug.Log("ScoreSystem not found");
             }
         }
-        else{
-                time.text = "0:00 Time's Up!";
-
-            }
-            
+        else
+        {
+            time.text = "0:00 Time's Up!";
+        }    
     }
 }

@@ -60,6 +60,13 @@ public class InventoryPanelMainLobby : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Load camera for non-lobby scenes
+        if (GetComponent<Canvas>().worldCamera is null)
+        {
+            GetComponent<Canvas>().worldCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+            mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        }
+
         // display selected weapon if exists, otherwise try to get one from the inventory
         if (null != selectedWeapon)
         {

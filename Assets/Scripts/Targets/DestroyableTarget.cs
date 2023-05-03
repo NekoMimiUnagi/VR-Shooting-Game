@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class DestroyableTarget : MonoBehaviour
 {
-// calculate score and damange when hit by bullet
-// in canvas script update score and damage
+    // calculate score and damange when hit by bullet
+    // in canvas script update score and damage
     protected BulletInfo bulletInfo;
-    protected GameObject HitBullet;
-    int weaponScore = 0;
-    int ammoScore = 0;
-    int weaponDamage = 0;
+    protected GameObject hitBullet;
+    //int weaponScore = 0;
+    //int ammoScore = 0;
+    //int weaponDamage = 0;
     int TargetHealth = 0;
     int totalDamage = 0;
     int TargetScore = 0;
@@ -18,7 +18,9 @@ public class DestroyableTarget : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
-        {   HitBullet = collision.gameObject;
+        {
+            hitBullet = collision.gameObject;
+            bulletInfo = hitBullet.GetComponent<BulletInfo>().GetBulletInfo();
             Destroy(collision.gameObject);
             // if health 0 and destroyed
 
@@ -35,7 +37,6 @@ public class DestroyableTarget : MonoBehaviour
     // }
     public BulletInfo GetBulletInfo()
     {   
-        BulletInfo bulletInfo = HitBullet.GetComponent<BulletInfo>().GetBulletInfo(HitBullet);
         return bulletInfo;
     }
 

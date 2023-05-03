@@ -14,7 +14,7 @@ public class AnimalScript : DestroyableTarget
     private float currentTime;
     private float waitTime;
     private int AnimalScore = 50;
-    public BulletInfo bulletInfo;
+    //public BulletInfo bulletInfo;
     private ScoreSystem scoreSystem;
     void Start()
     {
@@ -65,7 +65,9 @@ public class AnimalScript : DestroyableTarget
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
-        {   HitBullet = collision.gameObject;
+        {
+            hitBullet = collision.gameObject;
+            bulletInfo = hitBullet.GetComponent<BulletInfo>().GetBulletInfo();
             Destroy(collision.gameObject);
             Debug.Log("AnimalScript: Bullet hit");
             Destroy(gameObject);

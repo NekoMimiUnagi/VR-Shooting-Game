@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private string nickName;
     private Color color;
     private Vector3 relativePosition;
     private Quaternion faceTo;
     private string fromSceneName = "";
-    private float speed = 0;
-    private bool speedLock = false;
     private int ID;
     private int numPlayer = 0;
     private bool gameStarted = false;
 
     public Player()
+    {
+        ;
+    }
+
+    public Player(string newNickName)
     {
         nickName = newNickName;
     }
@@ -24,6 +28,12 @@ public class Player : MonoBehaviour
         color = newColor;
         ID = numPlayer;
         numPlayer++;
+    }
+
+    public Player(string newNickName, Color newColor)
+    {
+        nickName = newNickName;
+        color = newColor;
     }
 
     public void UpdateNickName(string newNickName)
@@ -57,6 +67,12 @@ public class Player : MonoBehaviour
     {
         return ID;
     }
+
+    public string GetNickName()
+    {
+        return nickName;
+    }
+
     public Color GetColor()
     {
         return color;

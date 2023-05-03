@@ -11,11 +11,11 @@ public class BulletInfo : MonoBehaviour
     private Color playerColor = Color.white;
     private string playerName = "Player";
     private string weaponName = "Weapon";
-    private string bulletName = "Bullet";
+    //private string bulletName = "Bullet";
     private int weaponScore = 0;
     private int weaponDamage = 0;
     private int ammoScore = 0; 
-    private int PlayerID = 0;
+    private int playerID = 0;
     void Start()
     {   
         
@@ -34,13 +34,26 @@ public class BulletInfo : MonoBehaviour
         weaponDamage = weapon.GetDamage();
         ammoScore = weapon.GetAmmoScore();
 
-        player = GameObject.Find("Player").GetComponent<Player>();
-        PlayerID = 0;
-        playerColor = Color.white;
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (go.GetComponent<PlayerNetwork>().IsOwner)
+            {
+                player = go.GetComponent<Player>();
+                playerID = (int)go.GetComponent<PlayerNetwork>().OwnerClientId;
+                playerColor = go.GetComponent<Renderer>().material.color;
+                Debug.Log("bulletinfo: " + playerColor);
+                break;
+            }
+        }
+
+        //player = GameObject.Find("Player").GetComponent<Player>();
+        //playerID = 0;
+        //playerColor = Color.white;
+        /*
         if(player != null)
         {
             Debug.Log("Player not null");
-            if( player.GetColor() != null){
+            if(player.GetColor() != null){
                 Debug.Log("playerColor not null");
                 playerColor = player.GetColor();
             }
@@ -49,13 +62,14 @@ public class BulletInfo : MonoBehaviour
                 Debug.Log("playerName not null");
                 playerName = player.GetNickName();
             }
-            
         }
+        */
 
         if (weapon != null)
         {
             if (weapon.GetWeaponName() != null)
-            {   Debug.Log("weaponName not null");
+            {
+                Debug.Log("weaponName not null");
                 weaponName = weapon.GetWeaponName();
             }
         }
@@ -66,12 +80,13 @@ public class BulletInfo : MonoBehaviour
     {
         
     }
-    public BulletInfo GetBulletInfo(GameObject bullet){
+
+    public BulletInfo GetBulletInfo(){
         return this;
     }
     
     public int GetPlayerID(){
-        return PlayerID;
+        return playerID;
     }
     public Color GetPlayerColor(){
         return playerColor;

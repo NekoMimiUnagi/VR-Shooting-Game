@@ -89,10 +89,9 @@ public class Teleportation : NetworkBehaviour
         else
         {
             int index = int.Parse(fromSceneName.Substring(fromSceneName.Length - 1, 1));
-            transform.position = bounds[index - 1].center + vector;
+            Vector3 position = bounds[index - 1].center + vector;
+            transform.position = new Vector3(position.x, 1, position.z);
         }
-
-        Debug.Log(OwnerClientId + "--" + transform.position);
 
         // assign stored rotation to the player in the current scene
         mainCamera.transform.rotation = rotation;
@@ -103,7 +102,7 @@ public class Teleportation : NetworkBehaviour
     {
         if (!IsOwner) return;
 
-        Debug.Log(newToScene + "--" + playerData.GetFromSceneName() + "--" + SceneManager.GetActiveScene().name + "--" + teleportationTargets.Count);
+        //Debug.Log(newToScene + "--" + playerData.GetFromSceneName() + "--" + SceneManager.GetActiveScene().name + "--" + teleportationTargets.Count);
 
         // Add virtual place of all scenes for the lobby
         if ("MainLobby" == SceneManager.GetActiveScene().name && teleportationTargets.Count != 3)
