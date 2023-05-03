@@ -6,14 +6,14 @@ public class DestroyableTarget : MonoBehaviour
 {
 // calculate score and damange when hit by bullet
 // in canvas script update score and damage
-    public BulletInfo bulletInfo;
-    private GameObject HitBullet;
-    private int weaponScore = 0;
-    private int ammoScore = 0;
-    private int weaponDamage = 0;
-    private int TargetHealth = 0;
-    private int totalDamage = 0;
-    private int targetScore = 0;
+    protected BulletInfo bulletInfo;
+    protected GameObject HitBullet;
+    int weaponScore = 0;
+    int ammoScore = 0;
+    int weaponDamage = 0;
+    int TargetHealth = 0;
+    int totalDamage = 0;
+    int TargetScore = 0;
     public bool isDestroyed = false;
     private void OnCollisionEnter(Collision collision)
     {
@@ -41,7 +41,7 @@ public class DestroyableTarget : MonoBehaviour
 
     public void SetTargetScore(int score)
     {
-        targetScore = score;
+        TargetScore = score;
     }
 
     public void SetTargetDamage(int damage)
@@ -56,7 +56,7 @@ public class DestroyableTarget : MonoBehaviour
     public int GetTargetScore()
     {   
         
-        return targetScore;
+        return TargetScore;
     }
     public int GetTargetHealth()
     {   

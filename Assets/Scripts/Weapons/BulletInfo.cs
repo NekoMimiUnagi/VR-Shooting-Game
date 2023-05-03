@@ -15,7 +15,7 @@ public class BulletInfo : MonoBehaviour
     private int weaponScore = 0;
     private int weaponDamage = 0;
     private int ammoScore = 0; 
-    
+    private int PlayerID = 0;
     void Start()
     {   
         
@@ -26,6 +26,8 @@ public class BulletInfo : MonoBehaviour
         //     player = go;
 
         //     }
+
+        // GetComponent<PlayerNetwork>().OwnerClientId
         ///-------------------------------------------------------------------------------------//
         weapon = GameObject.FindWithTag("Weapon").transform.GetChild(0).GetComponent<ShootWeapon>();
         weaponScore = weapon.GetWeaponScore();
@@ -33,6 +35,8 @@ public class BulletInfo : MonoBehaviour
         ammoScore = weapon.GetAmmoScore();
 
         player = GameObject.Find("Player").GetComponent<Player>();
+        PlayerID = 0;
+        playerColor = Color.white;
         if(player != null)
         {
             Debug.Log("Player not null");
@@ -65,11 +69,14 @@ public class BulletInfo : MonoBehaviour
     public BulletInfo GetBulletInfo(GameObject bullet){
         return this;
     }
-
+    
+    public int GetPlayerID(){
+        return PlayerID;
+    }
     public Color GetPlayerColor(){
         return playerColor;
     }
-    
+
     public string GetPlayerName(){
         return playerName;
     }

@@ -11,10 +11,20 @@ public class Player : MonoBehaviour
     private string fromSceneName = "";
     private float speed = 0;
     private bool speedLock = false;
+    private int ID;
+    private int numPlayer = 0;
 
     public Player(string newNickName)
     {
         nickName = newNickName;
+     
+    }
+    public Player(Color newColor)
+    {
+        color = newColor;
+        ID = numPlayer;
+        numPlayer++;
+   
     }
 
     public Player(string newNickName, Color newColor)
@@ -23,6 +33,7 @@ public class Player : MonoBehaviour
         color = newColor;
     }
 
+    
     public void UpdateNickName(string newNickName)
     {
         nickName = newNickName;
@@ -60,6 +71,10 @@ public class Player : MonoBehaviour
         return nickName;
     }
 
+    public int GetPlayerID()
+    {
+        return ID;
+    }
     public Color GetColor()
     {
         return color;
