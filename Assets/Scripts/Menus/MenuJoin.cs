@@ -9,7 +9,5 @@ public class MenuJoin : MonoBehaviour
     {
         NetworkManager.Singleton.StartClient();
         gameObject.transform.parent.GetComponent<MenuController>().Hide();
-        Player playerData = GameObject.FindWithTag("Player").GetComponent<Player>();
-        playerData.StartGame();
     }
 }

@@ -9,7 +9,5 @@ public class MenuStart : MonoBehaviour
     {
         NetworkManager.Singleton.StartHost();
         gameObject.transform.parent.GetComponent<MenuController>().Hide();
-        Player playerData = GameObject.FindWithTag("Player").GetComponent<Player>();
-        playerData.StartGame();
     }
 }

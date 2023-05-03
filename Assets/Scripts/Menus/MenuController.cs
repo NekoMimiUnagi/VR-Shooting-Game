@@ -23,13 +23,23 @@ public class MenuController : MonoBehaviour
         speedCtrl = GameObject.Find("SpeedController").GetComponent<SpeedController>();
         reticleActivator = GameObject.Find("ReticleActivator").GetComponent<ReticleActivator>();
 
-        // Show main menu when game starts
-        GameObject player = GameObject.FindWithTag("Player");
+        // find owner player and its data
+        GameObject player = null;
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (go.GetComponent<PlayerNetwork>().IsOwner)
+            {
+                player = go;
+                break;
+            }
+        }
         Player playerData = null;
         if (null != player)
         {
             playerData = GameObject.FindWithTag("Player").GetComponent<Player>();
         }
+
+        // Show main menu when game starts
         if ("MainMenu" == gameObject.name && (null == player || !playerData.GameStarted()))
         {
             originMenuName = gameObject.name;

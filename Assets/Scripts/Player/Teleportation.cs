@@ -13,8 +13,8 @@ public class Teleportation : NetworkBehaviour
     private GameObject mainCamera = null;
     private SpeedController speedCtrl = null;
     private GameObject shootingRangeNotice = null;
+
     private bool readyFlag = false;
-    private ReadyStatus ready;
     private bool newToScene = false;
 
     // Start is called before the first frame update
@@ -88,10 +88,11 @@ public class Teleportation : NetworkBehaviour
         }
         else
         {
-            Debug.Log(fromSceneName);
             int index = int.Parse(fromSceneName.Substring(fromSceneName.Length - 1, 1));
             transform.position = bounds[index - 1].center + vector;
         }
+
+        Debug.Log(OwnerClientId + "--" + transform.position);
 
         // assign stored rotation to the player in the current scene
         mainCamera.transform.rotation = rotation;
@@ -101,6 +102,8 @@ public class Teleportation : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
+
+        Debug.Log(newToScene + "--" + playerData.GetFromSceneName() + "--" + SceneManager.GetActiveScene().name + "--" + teleportationTargets.Count);
 
         // Add virtual place of all scenes for the lobby
         if ("MainLobby" == SceneManager.GetActiveScene().name && teleportationTargets.Count != 3)
@@ -123,7 +126,6 @@ public class Teleportation : NetworkBehaviour
             GameObject lobby = GameObject.Find("Lobby");
             teleportationTargets.Add(lobby);
             bounds.Add(lobby.GetComponent<Collider>().bounds);
-            Debug.Log(bounds.Count);
         }
 
         // restore transform position and rotation
@@ -151,16 +153,40 @@ public class Teleportation : NetworkBehaviour
             // all logics happen if player is in any virtual shooting range
             if (bounds[i].Contains(p_point))
             {
+                // set transform for teleporting to corresponding space and from scene
+                Vector3 positionToCenter = p_point - bounds[i].center;
+                playerData.UpdateRelativeTransform(positionToCenter, mainCamera.transform.rotation);
+                playerData.UpdateFromSceneName(SceneManager.GetActiveScene().name);
+
                 inFlag = true;
                 shootingRangeNotice.transform.Find("Ready").gameObject.SetActive(true);
 
-                // if shooting, the player is ready
+                // if press B, the player is ready
                 if (Input.GetButtonDown("js5"))
                 {
-                    ready = new ReadyStatus { sceneID = i, flag = !ready.flag };
-                    //readyFlag = !readyFlag;
-                    //GetComponent<PlayerNetwork>().SetReady(i, readyFlag);
-                    GetComponent<PlayerNetwork>().SetReadyServerRpc(ready);
+                    readyFlag = !readyFlag;
+                    if (readyFlag)
+                    {
+                        // pop text to mention player to push shoot button to cancel ready status
+                        if ("MainLobby" == SceneManager.GetActiveScene().name)
+                        {
+                            shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press B to cancel ready";
+                        }
+                        GetComponent<PlayerNetwork>().SetReady(i + 1);
+                    }
+                    else
+                    {
+                        // pop text to mention player to push shoot button to active ready status
+                        if ("MainLobby" == SceneManager.GetActiveScene().name)
+                        {
+                            shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press B to get ready";
+                        }
+                        else
+                        {
+                            shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press B to go lobby";
+                        }
+                        GetComponent<PlayerNetwork>().SetReady(0);
+                    }
 
                     if (readyFlag && IsServer)
                     {
@@ -169,47 +195,27 @@ public class Teleportation : NetworkBehaviour
                         // if not all ready, the host cannot be ready
                         if (!allReady)
                         {
-                            ready = new ReadyStatus { sceneID = i, flag = !ready.flag };
-                            //readyFlag = !readyFlag;
-                            //GetComponent<PlayerNetwork>().SetReady(i, readyFlag);
-                            GetComponent<PlayerNetwork>().SetReadyServerRpc(ready);
+                            readyFlag = !readyFlag;
+                            GetComponent<PlayerNetwork>().SetReady(0);
                         }
-                    }
-                }
-
-                if (ready.flag)
-                {
-                    // pop text to mention player to push shoot button to cancel ready status
-                    if ("MainLobby" == SceneManager.GetActiveScene().name)
-                    {
-                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press B to cancel ready";
-                    }
-
-                    // teleport to corresponding space
-                    Vector3 positionToCenter = p_point - bounds[i].center;
-                    playerData.UpdateRelativeTransform(positionToCenter, mainCamera.transform.rotation);
-                    playerData.UpdateFromSceneName(SceneManager.GetActiveScene().name);
-                    newToScene = true;
-                    ready.flag = false;
-                    if ("MainLobby" == SceneManager.GetActiveScene().name)
-                    {
-                        NetworkManager.SceneManager.LoadScene($"Scene{i+1}", LoadSceneMode.Single);
-                    }
-                    else
-                    {
-                        NetworkManager.SceneManager.LoadScene("MainLobby", LoadSceneMode.Single);
-                    }
-                }
-                else
-                {
-                    // pop text to mention player to push shoot button to active ready status
-                    if ("MainLobby" == SceneManager.GetActiveScene().name)
-                    {
-                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press B to get ready";
-                    }
-                    else
-                    {
-                        shootingRangeNotice.GetComponentInChildren<TMP_Text>().text = "Press B to go lobby";
+                        else
+                        {
+                            // reset ready status
+                            GetComponent<PlayerNetwork>().ClearAllReady();
+                            // reset scene status
+                            GetComponent<PlayerNetwork>().ResetSceneStatusClientRpc();
+                            // switch scene
+                            string nextScene = "";
+                            if ("MainLobby" == SceneManager.GetActiveScene().name)
+                            {
+                                nextScene = "Scene" + (i + 1).ToString();
+                            }
+                            else
+                            {
+                                nextScene = "MainLobby";
+                            }
+                            NetworkManager.SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
+                        }
                     }
                 }
 
@@ -220,11 +226,18 @@ public class Teleportation : NetworkBehaviour
         // if a player is not in any virtual shooting range, the play cannot be ready.
         if (!inFlag)
         {
-            ready.flag = false;
+            readyFlag = false;
             if (shootingRangeNotice.activeSelf)
             {
                 shootingRangeNotice.transform.Find("Ready").gameObject.SetActive(false);
             }
         }
+    }
+
+    public void ResetSceneStatus()
+    {
+        // reset scene status
+        newToScene = true;
+        readyFlag = false;
     }
 }
