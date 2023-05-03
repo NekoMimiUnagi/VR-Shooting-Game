@@ -1,10 +1,11 @@
+using System.Collections;
 using UnityEngine;
 
 public class AnimalScript : DestroyableTarget
 {
     public float minSpeed = 1f;
     public float maxSpeed = 3f;
-    public float stayDuration = 2f;
+    public float stayDuration = 10f;
     public float minWaitTime = 1f;
     public float maxWaitTime = 5f;
     public float changeDirectionTime = 2f;
@@ -13,34 +14,70 @@ public class AnimalScript : DestroyableTarget
     private float currentSpeed;
     private float currentTime;
     private float waitTime;
-    private int targetScore = 10;
+
+    public AnimalScript() : base(30) { }
+
     void Start()
     {
-        SetRandomDirection();
-        SetRandomSpeed();
-        SetRandomWaitTime();
-        SetTargetScore(targetScore);
         SetTargetHealth(100);
+        StartCoroutine(AnimalBehaviour());
     }
 
-    void Update()
+
+    IEnumerator AnimalBehaviour()
     {
-        currentTime += Time.deltaTime;
-
-        if (currentTime < waitTime)
+        while (true)
         {
-            return;
+            // Appear randomly in the scene
+            SetRandomPosition();
+            gameObject.SetActive(true);
+
+            // Walk randomly
+            StartCoroutine(WalkRandomly());
+
+            // Stay for a certain duration
+            yield return new WaitForSeconds(stayDuration);
+
+            // Disappear
+            StopCoroutine(WalkRandomly());
+            gameObject.SetActive(false);
+
+            // Wait before reappearing
+            yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
         }
+    }
 
-        transform.position += moveDirection * currentSpeed * Time.deltaTime;
-
-        if (currentTime > changeDirectionTime + waitTime)
+    IEnumerator WalkRandomly()
+    {
+        while (true)
         {
-            SetRandomDirection();
-            SetRandomSpeed();
-            SetRandomWaitTime();
-            currentTime = 0;
+            currentTime += Time.deltaTime;
+
+            if (currentTime < waitTime)
+            {
+                yield return null;
+                continue;
+            }
+
+            transform.position += moveDirection * currentSpeed * Time.deltaTime;
+
+            if (currentTime > changeDirectionTime + waitTime)
+            {
+                SetRandomDirection();
+                SetRandomSpeed();
+                SetRandomWaitTime();
+                currentTime = 0;
+            }
+
+            yield return null;
         }
+    }
+
+    private void SetRandomPosition()
+    {
+        float randomX = Random.Range(-50f, 50f);
+        float randomZ = Random.Range(-50f, 50f);
+        transform.position = new Vector3(randomX, 0, randomZ);
     }
 
     private void SetRandomDirection()
@@ -56,7 +93,7 @@ public class AnimalScript : DestroyableTarget
 
     private void SetRandomWaitTime()
     {
-        waitTime = Random.Range(minWaitTime, maxWaitTime);
+        waitTime = Random.Range(minWaitTime, maxWaitTime);  
     }
 
     private void OnCollisionEnter(Collision collision)
