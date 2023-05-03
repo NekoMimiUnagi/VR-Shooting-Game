@@ -8,16 +8,27 @@ public class Player : MonoBehaviour
     private Vector3 relativePosition;
     private Quaternion faceTo;
     private string fromSceneName = "";
+    private float speed = 0;
+    private bool speedLock = false;
+    private int ID;
+    private int numPlayer = 0;
     private bool gameStarted = false;
 
     public Player()
     {
-        ;
+        nickName = newNickName;
     }
 
     public Player(Color newColor)
     {
         color = newColor;
+        ID = numPlayer;
+        numPlayer++;
+    }
+
+    public void UpdateNickName(string newNickName)
+    {
+        nickName = newNickName;
     }
 
     public void UpdateColor(Color newColor)
@@ -42,6 +53,10 @@ public class Player : MonoBehaviour
         gameStarted = true;
     }
 
+    public int GetPlayerID()
+    {
+        return ID;
+    }
     public Color GetColor()
     {
         return color;

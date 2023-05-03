@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AnimalScript : MonoBehaviour
+public class AnimalScript : DestroyableTarget
 {
     public float minSpeed = 1f;
     public float maxSpeed = 3f;
@@ -13,12 +13,17 @@ public class AnimalScript : MonoBehaviour
     private float currentSpeed;
     private float currentTime;
     private float waitTime;
-
+    private int AnimalScore = 50;
+    public BulletInfo bulletInfo;
+    private ScoreSystem scoreSystem;
     void Start()
     {
         SetRandomDirection();
         SetRandomSpeed();
         SetRandomWaitTime();
+        SetTargetScore(AnimalScore);
+        SetTargetHealth(100);
+        scoreSystem = GameObject.Find("ScoreSystem").GetComponent<ScoreSystem>();
     }
 
     void Update()
@@ -60,9 +65,11 @@ public class AnimalScript : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
-        {
+        {   HitBullet = collision.gameObject;
             Destroy(collision.gameObject);
+            Debug.Log("AnimalScript: Bullet hit");
             Destroy(gameObject);
+            scoreSystem.UpdatePlayerData(gameObject);
         }
     }
 }
