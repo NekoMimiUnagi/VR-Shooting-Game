@@ -435,7 +435,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -144}
+  m_AnchoredPosition: {x: -34, y: 27}
   m_SizeDelta: {x: 1000, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &267082215
@@ -458,10 +458,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'This is a multiplayer game. At the end of the game, will display the scores
-    of all players. The player with the highest score
-
-    wins.'
+  m_text: "This game also support multiplayers. \n\nAt the end of the game, all players
+    scores will be displayed. \n\nThe player with the highest score wins!\n\nHave
+    fun\uFF01"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3381,22 +3380,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'This is EZ shoot game. There are four options in the main menu: START,
-    JOIN, SETTING, QUIT. When aiming at the start
-
-    and press the A button. You
-    can go to the lobby. Once you are in the lobby, there are three scenes: FOREST,
-    CITY, PLAIN.
-
-    You can select the scene you want to play and press the A button.
-    Once entered, you can see the scores of each player
-
-    at the upper right.
-    Also you can aim at the inventory box at the bottom left and press A button to
-    see 9 kinds of weapons,
-
-    pick up one weapon of your choice by clicking the
-    A button. '
+  m_text: "This is EZ shoot game. \nThere are four options in the main menu:\nSTART,
+    JOIN, SETTING, QUIT.\n\nPress A to enter lobby. Once you are in the lobby, there
+    are three scenes: \nFOREST, CITY, PLAIN. \n\nPressing A button to select different
+    scenes.\nOnce entered, you can see the scores of each player\nat the upper right.
+    \n\nInventory box at the bottom left has 9 kinds of weapons,\nyou can pick up
+    anyone by clicking the A button. "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3423,14 +3412,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -6871,7 +6860,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 20
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -8228,21 +8217,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'In the forest scene, the targets are some moving animals: wolf 50 points,
-    bear 40 points.
-
-    You can press the A button to shoot the animal when you
-    are aiming at it. If you successfully hit the target, you will get
-
-    corresponding
-    points.
-
-    In the city scene, the targets are some moving UFO. They are different
-    points according to the distance from you.
-
-    In the Plain scene, the targets
-    are some moving frisbee. They are different points according to the distance
-    from you.'
+  m_text: "Press A button to shoot at the animal while aiming. \nIf you successfully
+    hit the target, you will get corresponding points.\n\nIn the forest scene, the
+    targets are some moving animals: \nwolf 50 points, bear 40 points.\n\nIn the
+    city scene, the targets are some moving UFO. \n\nThey are different points according
+    to the distance from you.\nIn the Plain scene, the targets are some moving frisbee.
+    \n\nThey are different points according to the distance from you.\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8269,8 +8249,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
