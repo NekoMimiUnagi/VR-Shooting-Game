@@ -8,6 +8,7 @@ public class TutorialControl : MonoBehaviour
     public GameObject[] subTutorial;
     private int index;
     private GameObject mainMenu;
+    private GameObject lobbyMenu;
 
     private SpeedController speedCtrl;
     private ReticleActivator reticleActivator;
@@ -39,6 +40,7 @@ public class TutorialControl : MonoBehaviour
         reticleActivator = GameObject.Find("ReticleActivator").GetComponent<ReticleActivator>();
 
         mainMenu = GameObject.Find("MainMenu");
+        lobbyMenu = GameObject.Find("LobbyMenu");
         gameObject.SetActive(false);
     }
 
@@ -62,7 +64,14 @@ public class TutorialControl : MonoBehaviour
             {
                 index = 0;
                 Hide();
-                mainMenu.GetComponent<MenuController>().Show();
+                if ("" == originMenuName || "MainMenu" == originMenuName)
+                {
+                    mainMenu.GetComponent<MenuController>().Show();
+                }
+                else if ("LobbyMenu" == originMenuName)
+                {
+                    lobbyMenu.GetComponent<MenuController>().Show(originMenuName);
+                }
             }
         }
     }
