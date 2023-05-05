@@ -14,11 +14,17 @@ public class AnimalScript : DestroyableTarget
     private float currentTime;
     private float waitTime;
     private int AnimalScore = 50;
-    //public BulletInfo bulletInfo;
     private ScoreSystem scoreSystem;
 
     void Start()
     {
+        
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        }
+
         SetRandomDirection();
         SetRandomSpeed();
         SetRandomWaitTime();
@@ -53,7 +59,7 @@ public class AnimalScript : DestroyableTarget
     private void SetRandomDirection()
     {
         moveDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
-        transform.rotation = Quaternion.LookRotation(moveDirection);
+        transform.rotation = Quaternion.LookRotation(moveDirection); 
     }
 
     private void SetRandomSpeed()

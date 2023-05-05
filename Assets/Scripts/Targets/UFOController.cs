@@ -1,95 +1,68 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class UFOController : DestroyableTarget
+public class UFOController : MonoBehaviour
 {
-    public float minSpeed = 5f;
-    public float maxSpeed = 10f;
-    public float stayDuration = 2f;
-    public float appearDisappearDuration = 2f;
+    public float minHeight = 10f;
+    public float maxHeight = 25f;
+    public float minSpeed = 3f;
+    public float maxSpeed = 8f;
+    public float minWaitTime = 1f;
+    public float maxWaitTime = 3f;
+    public float changeDirectionTime = 2f;
 
     private Vector3 moveDirection;
-    private float moveSpeed;
-    private float stayTimer;
-    private float appearDisappearTimer;
-    private bool isVisible;
-    private Collider ufoCollider;
-    private Renderer ufoRenderer;
+    private float currentSpeed;
+    private float currentTime;
+    private float waitTime;
 
-    private void Start()
+    void Start()
     {
-        ufoCollider = GetComponent<Collider>();
-        ufoRenderer = GetComponent<Renderer>();
-        NewRandomDirection();
+        SetRandomDirection();
+        SetRandomSpeed();
+        SetRandomWaitTime();
 
-        float livingTime = Random.Range(livingTimeMin, livingTimeMax);
-        Destroy(this.gameObject, livingTime);
-    }
-
-    private void Update()
-    {
-        if (isVisible)
+        // Disable gravity and ensure the object has a collider
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
         {
-            stayTimer -= Time.deltaTime;
-            appearDisappearTimer -= Time.deltaTime;
-
-            if (stayTimer <= 0)
-            {
-                transform.position += moveDirection * moveSpeed * Time.deltaTime;
-                NewRandomDirection();
-            }
-
-            if (appearDisappearTimer <= 0)
-            {
-                StartCoroutine(Disappear());
-            }
+            rb.useGravity = false;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
 
-    private void NewRandomDirection()
+    void Update()
+    {
+        currentTime += Time.deltaTime;
+
+        if (currentTime < waitTime)
+        {
+            return;
+        }
+
+        transform.position += moveDirection * currentSpeed * Time.deltaTime;
+
+        if (currentTime > changeDirectionTime + waitTime)
+        {
+            SetRandomDirection();
+            SetRandomSpeed();
+            SetRandomWaitTime();
+            currentTime = 0;
+        }
+    }
+
+    private void SetRandomDirection()
     {
         moveDirection = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-        moveSpeed = Random.Range(minSpeed, maxSpeed);
-        stayTimer = Random.Range(0f, stayDuration);
+        moveDirection.y = Mathf.Clamp(moveDirection.y, minHeight / maxHeight, 1f);
     }
 
-    private IEnumerator Disappear()
+    private void SetRandomSpeed()
     {
-        isVisible = false;
-        ufoCollider.enabled = false;
-        float elapsedTime = 0;
-        float currentDuration = appearDisappearDuration / 2f;
-
-        while (elapsedTime < currentDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            ufoRenderer.material.color = Color.Lerp(Color.white, new Color(1, 1, 1, 0), elapsedTime / currentDuration);
-            yield return null;
-        }
-
-        ufoRenderer.enabled = false;
-        appearDisappearTimer = Random.Range(appearDisappearDuration, appearDisappearDuration * 2);
-
-        yield return new WaitForSeconds(appearDisappearTimer);
-        StartCoroutine(Appear());
+        currentSpeed = Random.Range(minSpeed, maxSpeed);
     }
 
-    private IEnumerator Appear()
+    private void SetRandomWaitTime()
     {
-        ufoRenderer.enabled = true;
-        float elapsedTime = 0;
-        float currentDuration = appearDisappearDuration / 2f;
-
-        while (elapsedTime < currentDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            ufoRenderer.material.color = Color.Lerp(new Color(1, 1, 1, 0), Color.white, elapsedTime / currentDuration);
-            yield return null;
-        }
-
-        isVisible = true;
-        ufoCollider.enabled = true;
-        appearDisappearTimer = Random.Range(appearDisappearDuration, appearDisappearDuration * 2);
+        waitTime = Random.Range(minWaitTime, maxWaitTime);
     }
 }
