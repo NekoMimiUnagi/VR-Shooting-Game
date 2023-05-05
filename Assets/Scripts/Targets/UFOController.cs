@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UFOController : MonoBehaviour
+public class UFOController : DestroyableTarget
 {
     public float minSpeed = 5f;
     public float maxSpeed = 10f;
@@ -22,6 +22,9 @@ public class UFOController : MonoBehaviour
         ufoCollider = GetComponent<Collider>();
         ufoRenderer = GetComponent<Renderer>();
         NewRandomDirection();
+
+        float livingTime = Random.Range(livingTimeMin, livingTimeMax);
+        Destroy(this.gameObject, livingTime);
     }
 
     private void Update()

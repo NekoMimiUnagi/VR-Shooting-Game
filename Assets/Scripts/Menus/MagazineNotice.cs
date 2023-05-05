@@ -30,7 +30,7 @@ public class MagazineNotice : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   
+    {
         // Load camera for non-lobby scenes
         if (GetComponent<Canvas>().worldCamera is null)
         {
@@ -79,8 +79,8 @@ public class MagazineNotice : MonoBehaviour
                 {   
                     Color playerColor = playerStats.color;
                     Debug.Log(playerID + " panelcolor:" + playerColor);
-                    totalScore.color = playerColor;
-                    damage.color = playerColor;
+                    //totalScore.color = playerColor;
+                    //damage.color = playerColor;
 
                     int currentTotalScore = playerStats.totalScore;
                     int currentTotalDamage = playerStats.totalDamage;
@@ -109,7 +109,7 @@ public class MagazineNotice : MonoBehaviour
         }
         else
         {
-            time.text = "0:00 Time's Up!";
+            time.text = "Time's Up!";
         }    
     }
 }

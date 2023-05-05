@@ -45,16 +45,17 @@ public class Teleportation : NetworkBehaviour
         // rotate relative position vector based on scenes
         if ("Scene1" == SceneManager.GetActiveScene().name)
         {
-            ;
+            y = 1.5f;
         }
         else if ("Scene2" == SceneManager.GetActiveScene().name)
         {
             vector = Quaternion.AngleAxis(90, Vector3.up) * vector;
             y = 2.1f; // test result in the scene2
         }
-        else if ("Scene2" == SceneManager.GetActiveScene().name)
+        else if ("Scene3" == SceneManager.GetActiveScene().name)
         {
-            ;
+            vector = Quaternion.AngleAxis(90, Vector3.up) * vector;
+            y = 6;
         }
         else if ("MainLobby" == SceneManager.GetActiveScene().name)
         {
@@ -68,7 +69,7 @@ public class Teleportation : NetworkBehaviour
             }
             else if ("Scene3" == fromSceneName)
             {
-                ;
+                vector = Quaternion.AngleAxis(-90, Vector3.up) * vector;
             }
         }
         // assign stored position to the player in the current scene

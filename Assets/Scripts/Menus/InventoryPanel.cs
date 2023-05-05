@@ -8,7 +8,7 @@ public class InventoryPanel : MonoBehaviour
 {
     private List<RawImage> images;
     private Inventory inventory;
-    private int rowLength = 3;
+    private int rowLength = 4;
     private int selectedV = 0;
     private int selectedH = 0;
     private bool waitFlag = false;

@@ -44,6 +44,11 @@ public class ColorPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GetComponent<Canvas>().worldCamera is null)
+        {
+            GetComponent<Canvas>().worldCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        }
+
         // find the right player and store it
         if (null == player)
         {
@@ -76,6 +81,7 @@ public class ColorPanel : MonoBehaviour
                     if (null != player)
                     {
                         player.GetComponent<PlayerNetwork>().SetColorServerRpc(colors[selectedColorIndex]);
+                        player.GetComponent<Player>().UpdateColor(colors[selectedColorIndex]);
                     }
                     colorDisplayer.color = colors[selectedColorIndex];
                 }
@@ -86,6 +92,7 @@ public class ColorPanel : MonoBehaviour
                     if (null != player)
                     {
                         player.GetComponent<PlayerNetwork>().SetColorServerRpc(colors[selectedColorIndex]);
+                        player.GetComponent<Player>().UpdateColor(colors[selectedColorIndex]);
                     }
                     colorDisplayer.color = colors[selectedColorIndex];
                 }
