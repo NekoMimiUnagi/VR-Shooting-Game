@@ -337,9 +337,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: damage
       objectReference: {fileID: 0}
+    - target: {fileID: 5835165129558964182, guid: 03afc63710f23ba4ab6e3757198e444a, type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5835165129558964183, guid: 03afc63710f23ba4ab6e3757198e444a, type: 3}
       propertyPath: m_text
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5835165129558964183, guid: 03afc63710f23ba4ab6e3757198e444a, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.16470589
+      objectReference: {fileID: 0}
+    - target: {fileID: 5835165129558964183, guid: 03afc63710f23ba4ab6e3757198e444a, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.16470589
+      objectReference: {fileID: 0}
+    - target: {fileID: 5835165129558964183, guid: 03afc63710f23ba4ab6e3757198e444a, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.16470589
+      objectReference: {fileID: 0}
+    - target: {fileID: 5835165129558964183, guid: 03afc63710f23ba4ab6e3757198e444a, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4280953386
       objectReference: {fileID: 0}
     - target: {fileID: 5835165129558964183, guid: 03afc63710f23ba4ab6e3757198e444a, type: 3}
       propertyPath: m_HorizontalAlignment
@@ -919,6 +939,10 @@ PrefabInstance:
     - target: {fileID: 5835165129558964181, guid: 03afc63710f23ba4ab6e3757198e444a, type: 3}
       propertyPath: m_Name
       value: totalScore
+      objectReference: {fileID: 0}
+    - target: {fileID: 5835165129558964182, guid: 03afc63710f23ba4ab6e3757198e444a, type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5835165129558964183, guid: 03afc63710f23ba4ab6e3757198e444a, type: 3}
       propertyPath: m_text

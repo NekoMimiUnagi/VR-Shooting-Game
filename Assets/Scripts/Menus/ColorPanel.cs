@@ -81,6 +81,7 @@ public class ColorPanel : MonoBehaviour
                     if (null != player)
                     {
                         player.GetComponent<PlayerNetwork>().SetColorServerRpc(colors[selectedColorIndex]);
+                        player.GetComponent<Player>().UpdateColor(colors[selectedColorIndex]);
                     }
                     colorDisplayer.color = colors[selectedColorIndex];
                 }
@@ -91,6 +92,7 @@ public class ColorPanel : MonoBehaviour
                     if (null != player)
                     {
                         player.GetComponent<PlayerNetwork>().SetColorServerRpc(colors[selectedColorIndex]);
+                        player.GetComponent<Player>().UpdateColor(colors[selectedColorIndex]);
                     }
                     colorDisplayer.color = colors[selectedColorIndex];
                 }

@@ -79,8 +79,8 @@ public class MagazineNotice : MonoBehaviour
                 {   
                     Color playerColor = playerStats.color;
                     Debug.Log(playerID + " panelcolor:" + playerColor);
-                    totalScore.color = playerColor;
-                    damage.color = playerColor;
+                    //totalScore.color = playerColor;
+                    //damage.color = playerColor;
 
                     int currentTotalScore = playerStats.totalScore;
                     int currentTotalDamage = playerStats.totalDamage;
