@@ -12,6 +12,7 @@ public class ScoreSystem : MonoBehaviour
 
     public TMPro.TMP_Text WinningNote;
     public GameObject WinningPanel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +46,6 @@ public class ScoreSystem : MonoBehaviour
         */
     }
 
-    // Update is called once per frame
     public void UpdatePlayerData(GameObject Target)
     {
         // Loop through all the players in the game and target, to check if they have identical names
@@ -70,22 +70,31 @@ public class ScoreSystem : MonoBehaviour
             //     }
             // }
         //}
+
         // Update the player's score and damage
         BulletInfo bullet = Target.GetComponent<AnimalScript>().GetBulletInfo();
+
+        // Player's Info
         int playerID = bullet.GetPlayerID();
-        Debug.Log(playerID + "---" + bullet.GetPlayerColor());
         if (!playerStatsDict.ContainsKey(playerID))
         {
             playerStatsDict.Add(playerID, new PlayerStats(bullet.GetPlayerColor(), 0, 0));
         }
-        Debug.Log(playerID + "---" + playerStatsDict[playerID].color);
-        int weaponScore = bullet.GetWeaponScore();
+
+        // Weapon's Info
         // int weaponDamage = bullet.GetWeaponDamage();
+        int weaponScore = bullet.GetWeaponScore();
         int ammoScore = bullet.GetAmmoScore();
+
+        // Target's Info
         int TargetScore = Target.GetComponent<AnimalScript>().GetTargetScore();
         int TargetDamage = Target.GetComponent<AnimalScript>().GetTargetHealth();
+
+        // Calculate Score
         playerStatsDict[playerID].totalScore += weaponScore + ammoScore + TargetScore;
         playerStatsDict[playerID].totalDamage += TargetDamage;
+
+        // Win !!!
         if (playerStatsDict[playerID].totalScore >= 200)
         {
             WinningNote.text = "Player " + playerID + " wins!";

@@ -109,7 +109,7 @@ public class MagazineNotice : MonoBehaviour
         }
         else
         {
-            time.text = "0:00 Time's Up!";
+            time.text = "Time's Up!";
         }    
     }
 }

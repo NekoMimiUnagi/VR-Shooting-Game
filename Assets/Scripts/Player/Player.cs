@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private string nickName;
+    private int id;
     private Color color;
     private Vector3 relativePosition;
     private Quaternion faceTo;
@@ -18,9 +18,9 @@ public class Player : MonoBehaviour
         ;
     }
 
-    public Player(string newNickName)
+    public Player(int newID)
     {
-        nickName = newNickName;
+        id = newID;
     }
 
     public Player(Color newColor)
@@ -30,15 +30,15 @@ public class Player : MonoBehaviour
         numPlayer++;
     }
 
-    public Player(string newNickName, Color newColor)
+    public Player(int newID, Color newColor)
     {
-        nickName = newNickName;
+        id = newID;
         color = newColor;
     }
 
-    public void UpdateNickName(string newNickName)
+    public void UpdateID(int newID)
     {
-        nickName = newNickName;
+        id = newID;
     }
 
     public void UpdateColor(Color newColor)
@@ -63,14 +63,9 @@ public class Player : MonoBehaviour
         gameStarted = true;
     }
 
-    public int GetPlayerID()
+    public int GetID()
     {
-        return ID;
-    }
-
-    public string GetNickName()
-    {
-        return nickName;
+        return id;
     }
 
     public Color GetColor()
