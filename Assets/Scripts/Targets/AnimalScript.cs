@@ -16,6 +16,7 @@ public class AnimalScript : DestroyableTarget
     private int AnimalScore = 50;
     //public BulletInfo bulletInfo;
     private ScoreSystem scoreSystem;
+
     void Start()
     {
         SetRandomDirection();
@@ -24,6 +25,9 @@ public class AnimalScript : DestroyableTarget
         SetTargetScore(AnimalScore);
         SetTargetHealth(100);
         scoreSystem = GameObject.Find("ScoreSystem").GetComponent<ScoreSystem>();
+
+        float livingTime = Random.Range(livingTimeMin, livingTimeMax);
+        Destroy(this.gameObject, livingTime);
     }
 
     void Update()

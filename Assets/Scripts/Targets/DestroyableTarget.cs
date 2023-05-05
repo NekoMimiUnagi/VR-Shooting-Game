@@ -15,6 +15,10 @@ public class DestroyableTarget : MonoBehaviour
     int totalDamage = 0;
     int TargetScore = 0;
     public bool isDestroyed = false;
+
+    protected float livingTimeMin = 30f;
+    protected float livingTimeMax = 180f;
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
@@ -35,6 +39,7 @@ public class DestroyableTarget : MonoBehaviour
     //     totalDamage += weaponDamage;
     //     return totalDamage;
     // }
+
     public BulletInfo GetBulletInfo()
     {   
         return bulletInfo;
