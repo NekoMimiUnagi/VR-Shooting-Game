@@ -30,7 +30,7 @@ public class MagazineNotice : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   
+    {
         // Load camera for non-lobby scenes
         if (GetComponent<Canvas>().worldCamera is null)
         {

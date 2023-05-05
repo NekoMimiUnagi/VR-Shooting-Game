@@ -14,9 +14,13 @@ public class MenuSwitch : MonoBehaviour
         {
             targetMenu.GetComponent<ColorPanel>().Show(originMenuName);
         }
-        else if("VolumePanel" == targetMenu.name)
+        else if ("VolumePanel" == targetMenu.name)
         {
             targetMenu.GetComponent<VolumePanel>().Show(originMenuName);
+        }
+        else if ("Tutorial" == targetMenu.name)
+        {
+            targetMenu.GetComponent<TutorialControl>().Show(originMenuName);
         }
         else
         {

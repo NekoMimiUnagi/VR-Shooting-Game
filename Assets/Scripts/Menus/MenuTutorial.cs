@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class MenuTutorial : MonoBehaviour
 {
-    public GameObject tutorial;
+    private GameObject tutorial;
 
     // Start is called before the first frame update
     public void tutorialStart()
     {
         tutorial.SetActive(true);
     }
+
     void Start()
     {
-        
+        tutorial = GameObject.Find("Tutorial");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

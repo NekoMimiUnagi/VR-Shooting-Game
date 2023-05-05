@@ -69,6 +69,11 @@ public class MenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GetComponent<Canvas>().worldCamera is null)
+        {
+            GetComponent<Canvas>().worldCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        }
+
         // select button by joy-stick up and down
         float trend = Input.GetAxisRaw("Vertical");
         if (-0.2f <= trend && trend <= 0.2f)

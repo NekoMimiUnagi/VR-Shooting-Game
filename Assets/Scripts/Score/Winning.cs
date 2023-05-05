@@ -12,5 +12,12 @@ public class Winning : MonoBehaviour
     }
 
     // Update is called once per frame
-
+    void Update()
+    {
+        // Load camera for non-lobby scenes
+        if (GetComponent<Canvas>().worldCamera is null)
+        {
+            GetComponent<Canvas>().worldCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        }
+    }
 }

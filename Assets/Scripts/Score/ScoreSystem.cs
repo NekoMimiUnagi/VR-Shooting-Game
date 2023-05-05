@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ScoreSystem : MonoBehaviour
-{   
+{
 
     [SerializeField] private List<Player> playersList = new List<Player>();
     // [SerializeField] private List<DestroyableTarget> destroyedTargetsList = new List<DestroyableTarget>();
