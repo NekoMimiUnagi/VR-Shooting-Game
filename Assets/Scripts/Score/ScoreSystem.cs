@@ -72,7 +72,7 @@ public class ScoreSystem : MonoBehaviour
         //}
 
         // Update the player's score and damage
-        BulletInfo bullet = Target.GetComponent<AnimalScript>().GetBulletInfo();
+        BulletInfo bullet = Target.GetComponent<DestroyableTarget>().GetBulletInfo();
 
         // Player's Info
         int playerID = bullet.GetPlayerID();
@@ -98,7 +98,7 @@ public class ScoreSystem : MonoBehaviour
         if (playerStatsDict[playerID].totalScore >= 200)
         {
             WinningNote.text = "Player " + playerID + " wins!";
-            WinningNote.color = bullet.GetPlayerColor();
+            //WinningNote.color = bullet.GetPlayerColor();
             WinningPanel.SetActive(true);
         }
     }

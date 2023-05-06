@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class UFOController : MonoBehaviour
+public class UFOController : DestroyableTarget
 {
     public float minHeight = 10f;
     public float maxHeight = 25f;
@@ -15,6 +15,8 @@ public class UFOController : MonoBehaviour
     private float currentTime;
     private float waitTime;
 
+    private ScoreSystem scoreSystem;
+
     void Start()
     {
         SetRandomDirection();
@@ -28,6 +30,11 @@ public class UFOController : MonoBehaviour
             rb.useGravity = false;
             rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
+
+        scoreSystem = GameObject.Find("ScoreSystem").GetComponent<ScoreSystem>();
+
+        float livingTime = Random.Range(livingTimeMin, livingTimeMax);
+        Destroy(this.gameObject, livingTime);
     }
 
     void Update()
@@ -64,5 +71,18 @@ public class UFOController : MonoBehaviour
     private void SetRandomWaitTime()
     {
         waitTime = Random.Range(minWaitTime, maxWaitTime);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            hitBullet = collision.gameObject;
+            bulletInfo = hitBullet.GetComponent<BulletInfo>().GetBulletInfo();
+            Destroy(collision.gameObject);
+            Debug.Log("AnimalScript: Bullet hit");
+            Destroy(gameObject);
+            scoreSystem.UpdatePlayerData(gameObject);
+        }
     }
 }
